@@ -54,9 +54,15 @@ const handleSubmit = async (e) => {
       console.log(response.data);
     }
   } catch (error) {
-    console.error(error);
-    alert('Incorrect email or password!');
-  }
+    console.error('Error:', error);
+  
+    if (error.response) {
+      console.error('Server Error Response:', error.response.data);
+      alert(error.response.data.message || 'Something went wrong!');
+    } else {
+      alert('Incorrect email or password!');
+    }
+  }  
 };
 
 return (
