@@ -41,7 +41,7 @@ function SellerDashboard() {
       console.log(`${key}:`, value);
     }
     try {
-      const response = await fetch('http://localhost:5001/properties', {
+      const response = await fetch('https://homeeasebackend.onrender.com/properties', {
         method: 'POST',
         body: data,
       });

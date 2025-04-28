@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ ADDED
+// New code
 const AuthForm = () => {
 const navigate = useNavigate(); // ✅ ADDED
 const [isLogin, setIsLogin] = useState(true); // true = show login, false = show register
@@ -18,7 +19,7 @@ const toggleForms = () => {
 };
 const handleSubmit = async (e) => {
   e.preventDefault();
-  const apiUrl = 'http://localhost:5001';
+  const apiUrl = 'https://homeeasebackend.onrender.com';
   try {
     if (isLogin) {
       // Login
