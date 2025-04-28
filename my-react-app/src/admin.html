@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EthioHome Market</title>
+    <style>
+        body{
+font-family: Arial, sans-serif;
+text-align: center;
+margin: 50px;
+        }
+.container{
+    max-width: 400px;
+    margin: auto;
+    background-color: hsl(0, 0%, 90%)
+}
+.container:hover{
+    max-width: 400px;
+    margin: auto;
+    background-color: hsl(0, 0%, 80%)
+}
+.form-box{
+    display: none;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="loginForm" class="form-box" style="display: block;">
+        <h2>Login</h2>
+        <form action="">
+            <label for="email">Email</label><br>
+            <input type="email" placeholder="enter your email" required><br>
+            <label for="password">Password</label><br>
+            <input type="password" placeholder="enter your password" required><br>
+            <button  type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" onclick="toggleForms()">Sign up</a></p>
+    </div>
+<!-- Registration Form -->
+
+<div id="registerForm" class="form-box">
+<h2>Register</h2>
+<form action="">
+    <label for="full name">Full Name</label><br>
+    <input type="text" placeholder="Full Name" required><br>
+    <label for="email">Email</label><br>
+    <input type="email" placeholder="email" required><br>
+    <label for="full name">Password</label><br>
+    <input type="password" placeholder="password" required><br>
+<button type="submit">Sign Up</button>
+</form>
+<p>Already have an account?  <a href="#" onclick="toggleForms()">Login</a></p>
+</div>
+</div>
+<script>
+    function toggleForms(){
+        var loginForm = document.getElementById("loginForm");
+        var registerForm = document.getElementById("registerForm");
+
+if(loginForm.style.display === "block"){
+    loginForm.style.display = "none";
+    registerForm.style.display = "block";
+}else{
+    loginForm.style.display = "block";
+    registerForm.style.display = "none";
+}
+    }
+</script>
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

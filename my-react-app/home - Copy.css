@@ -1,0 +1,252 @@
+/* ===== Global Body Styles ===== */
+body {
+    padding-top: 80px; /* Adjust based on your navbar height */
+    background-image: url('img3.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #f8f9fa; /* Fallback background */
+  }
+  /* ===== Main Container ===== */
+  .contain1 {
+    background-color: rgba(240, 248, 255, 0.822);
+    color: black;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 40px;
+    margin-left: 5px;
+  }
+  /* ===== Section Icons ===== */
+  .line::before {
+    margin-right: 8px;
+    font-size: 1.2em;
+  }
+  .home::before {
+    content: "🌍";
+  }
+  .listing::before {
+    content: "🏠";
+  }
+  .search::before {
+    content: "🔍";
+  }
+  /* ===== Layout and Spacing ===== */
+  .home1 {
+    margin-top: 0px;
+  }
+  .col-lg-6 {
+    background-color: rgba(240, 248, 255, 0.943);
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 30px;
+  }
+  /* ===== Typography ===== */
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .text-center {
+    color: #007bff;
+  }
+  /* ===== Forms ===== */
+  .form-control {
+    border-radius: 8px;
+  }
+  textarea.form-control {
+    resize: none;
+  }
+  /* ===== Buttons ===== */
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 8px;
+  }
+  .card .btn {
+    border-radius: 50px;
+    padding: 10px 25px;
+  }
+  /* ===== Cards ===== */
+  .card {
+    border-radius: 12px;
+  }
+  .card h4 {
+    font-size: 1.1rem;
+    color: #333;
+  }
+  .card p {
+    font-size: 1rem;
+  }
+  /* ===== Images ===== */
+  .awra {
+    width: 80px;         
+    height: 80px;
+    border-radius: 50%;   
+    object-fit: cover;    
+    border: 2px solid #007bff;    
+  }
+  /* ===== Misc Fixes ===== */
+  .manor {
+    padding: 0px !important;
+  }
+  .about {
+    margin: 0px !important;
+  }
+  .footer {
+    padding: 0px !important;
+  }
+  /* .buyerPage{
+    font-weight: bold;
+    color: rgb(50, 99, 205);
+    font-size: 32px;
+    background-color: antiquewhite;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  } */
+  /* BuyerDashboard styles */
+.buyerPage {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+.property-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.property-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+.property-card:hover {
+  transform: scale(1.02);
+}
+.property-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+.property-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+.property-card p {
+  margin: 0.25rem 0;
+  color: #555;
+}
+/* Seller Dashboard Styles */
+.sellerPage {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 40px auto;
+  text-align: center;
+}
+.sellerPage h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+.sellerPage p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+input,
+textarea {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  transition: border-color 0.3s;
+}
+input:focus,
+textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+textarea {
+  resize: vertical;
+  height: 150px;
+}
+button {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  max-width: 500px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+input[type="file"] {
+  padding: 5px;
+}
+
+label {
+  font-size: 1.1rem;
+  color: #34495e;
+  margin-bottom: 10px;
+  align-self: flex-start;
+  margin-left: 10px;
+}
+
+input[type="file"] {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+input[type="file"]:focus {
+  border-color: #3498db;
+}
+
+@media (max-width: 768px) {
+  .sellerPage {
+    padding: 20px;
+  }
+
+  form {
+    gap: 15px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
+
