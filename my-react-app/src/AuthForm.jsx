@@ -43,13 +43,7 @@ const handleSubmit = async (e) => {
 
     } else {
       // Register
-    const role = window.location.pathname.includes('seller') ? 'seller' : 'buyer'; 
-    console.log({
-      full_name: formData.fullName,
-      email: formData.email,
-      password: formData.password,
-      role,
-    });    
+    const role = window.location.pathname.includes('seller') ? 'seller' : 'buyer';   
     const response = await axios.post(`${apiUrl}/register`, {
         full_name: formData.fullName,
         email: formData.email,
