@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import '../home.css';
 import AuthSelectionModal from './AuthSelectionModal';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 const Home = () => {
 const [modalIsOpen, setModalIsOpen] = useState(false);
 const navigate = useNavigate();
@@ -26,6 +24,7 @@ navigate('/auth/buyer-login'); // Navigate to buyer login page
 navigate('/auth/seller-login'); // Navigate to seller login page
 }
 };
+const [showSearch, setShowSearch] = useState(false);
 return(
 <div>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -75,6 +74,44 @@ return(
   </div>
 </div>
 </nav>
+<div className="contain1">
+      <div className="text-center home1">
+        <h2 className="home line">Welcome to Home Listing</h2>
+        <p className="listing line">Find your dream house here!</p>
+      </div>
+
+      {!showSearch ? (
+        <div className="text-center mt-4">
+          <button className="btn btn-primary" onClick={() => setShowSearch(true)}>
+            🔍 Start Property Search
+          </button>
+        </div>
+      ) : (
+        <div className="col-lg-6 mx-auto mt-4 p-4">
+          <h3 className="text-center search line mb-4">Search Filters</h3>
+          <form>
+            <div className="mb-3">
+              <label>Location</label>
+              <input type="text" className="form-control" placeholder="Enter location" />
+            </div>
+            <div className="mb-3">
+              <label>Price Range</label>
+              <div className="d-flex gap-2">
+                <input type="number" className="form-control" placeholder="Min" />
+                <input type="number" className="form-control" placeholder="Max" />
+              </div>
+            </div>
+            <div className="mb-3">
+              <label>Size (sq. m)</label>
+              <input type="number" className="form-control" placeholder="Enter size" />
+            </div>
+            <div className="text-center">
+              <button type="submit" className="btn btn-primary">Search</button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
 <section className="home1" id="home">
 <div className="row contain1" id="container">
   <div className="col-md-12 col-lg-6 mb-4">
@@ -222,5 +259,4 @@ onSelect={handleRoleSelect}
 </div>
 );
 };
-
 export default Home;

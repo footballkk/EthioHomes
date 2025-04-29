@@ -4,7 +4,6 @@ import Home from './Home.jsx';
 import AuthForm from './AuthForm.jsx';
 import BuyerDashboard from './BuyerDashboard.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
-
 function App() {
   return (
     <Routes>
