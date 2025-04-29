@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import '../home.css';
 import AuthSelectionModal from './AuthSelectionModal';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useTranslation } from 'react-i18next';
 const Home = () => {
+const { t } = useTranslation();
 const [modalIsOpen, setModalIsOpen] = useState(false);
 const navigate = useNavigate();
 // Function to open modal
@@ -28,52 +30,62 @@ const [showSearch, setShowSearch] = useState(false);
 return(
 <div>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-<div className="container-fluid">
-  <a className="navbar-brand" href="#">
-    <img
-      className="awra"
-      src="../MyLogo.png"
-      alt="Logo"
-      style={{ width: '40px', height: '40px' }}
-    />
-    <b>HomeEase</b>
-  </a>
-  <button
-    className="navbar-toggler"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-  <span className="navbar-toggler-icon"></span>
-  </button>
-  <div className="collapse navbar-collapse" id="navbarNav">
-    <ul className="navbar-nav ms-auto">
-      <li className="nav-item">
-        <a className="nav-link active" href="#home">
-          Home
+      <div className="container-fluid">
+        <a className="navbar-brand" href="#">
+          <img
+            className="awra"
+            src="../MyLogo.png"
+            alt="Logo"
+            style={{ width: '40px', height: '40px' }}
+          />
+          <b>HomeEase</b>
         </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="#about1">
-          About
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="#contact">
-          Contact
-        </a>
-      </li>
-      {/* Login/Signup button opens modal */}
-      <li className="nav-item">
-        <button className="nav-link btn btn-link text-white" onClick={handleOpenModal}>Login</button>
-      </li>
-    </ul>
-  </div>
-</div>
-</nav>
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <a className="nav-link active" href="#home">Home</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#about1">About</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#contact">Contact</a>
+            </li>
+
+            {/* Login Button */}
+            <li className="nav-item">
+              <button className="nav-link btn btn-link text-white" onClick={handleOpenModal}>
+                Login
+              </button>
+            </li>
+
+            {/* 🌐 Language Buttons */}
+            <li className="nav-item">
+              <button className="btn btn-sm btn-light mx-1" onClick={() => i18n.changeLanguage('en')}>English</button>
+            </li>
+            <li className="nav-item">
+              <button className="btn btn-sm btn-light mx-1" onClick={() => i18n.changeLanguage('am')}>አማርኛ</button>
+            </li>
+            <li className="nav-item">
+              <button className="btn btn-sm btn-light mx-1" onClick={() => i18n.changeLanguage('om')}>Afaan Oromoo</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 <div className="contain1">
       <div className="text-center home1">
         <h2 className="home line">Welcome to Home Listing</h2>
@@ -83,7 +95,7 @@ return(
       {!showSearch ? (
         <div className="text-center mt-4">
           <button className="btn btn-primary" onClick={() => setShowSearch(true)}>
-            🔍 Start Property Search
+             🔍 Start Property Search 
           </button>
         </div>
       ) : (
@@ -118,19 +130,17 @@ return(
     <div>
       <center><em>Welcome to HomeEase</em></center><br />
       <div className="line home">
-        Connecting home buyers and sellers across Ethiodivia through a
-        smart, efficient, and easy-to-use platform designed for every
-        region.
+        Connecting home buyers and sellers across Ethiopia through asmart, 
+        efficient, and easy to use platform designed for every region
       </div>
       <div className="line listing">
-        Sellers can effortlessly list their properties with comprehensive
-        details including location, price, size, and amenities—making it
-        easier to attract serious buyers.
+        Sellers can effortlessly list their properties with comprehensive details including location, price, 
+        size, and amenities—making it easier to attract serious buyers.
       </div>
       <div className="line search">
         Buyers can explore a wide range of homes, filter by their needs,
-        and receive instant notifications when new listings match
-        their preferences.
+        and receive instant notifications when new listings match their
+        preferences.
       </div>
     </div>
   </div>
