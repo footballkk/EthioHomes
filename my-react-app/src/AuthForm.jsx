@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ ADDED
+import Footer from './components/Footer'; // adjust the path if needed
 // New code
 const AuthForm = () => {
 const navigate = useNavigate(); // ✅ ADDED
@@ -13,13 +14,12 @@ const [formData, setFormData] = useState({
 const handleChange = (e) => {
   setFormData({ ...formData, [e.target.name]: e.target.value });
 };
-
 const toggleForms = () => {
   setIsLogin(!isLogin);
 };
 const handleSubmit = async (e) => {
   e.preventDefault();
-  const apiUrl = 'https://homeeasebackend.onrender.com';
+  const apiUrl = 'http://localhost:5001';
   try {
     if (isLogin) {
       // Login
@@ -137,6 +137,7 @@ Already have an account?{' '}
 </div>
 )}
 </div>
+<Footer />
 </div>
 );
 };
