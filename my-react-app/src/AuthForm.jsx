@@ -19,7 +19,7 @@ const toggleForms = () => {
 };
 const handleSubmit = async (e) => {
   e.preventDefault();
-  const apiUrl = 'http://localhost:5001';
+  const apiUrl = 'https://homeeasebackend.onrender.com';
   try {
     if (isLogin) {
       // Login

@@ -18,7 +18,7 @@ const BuyerDashboard = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/properties');
+        const response = await axios.get('https://homeeasebackend.onrender.com/properties');
         setProperties(response.data);
       } catch (error) {
         console.error('Failed to fetch properties:', error);
@@ -50,7 +50,7 @@ const BuyerDashboard = () => {
               <div key={property._id} className="property-card">
                 {property.image && (
                   <img
-                    src={`http://localhost:5001${property.image}`}
+                    src={`https://homeeasebackend.onrender.com${property.image}`}
                     alt="Home"
                     className="property-image"
                   />
