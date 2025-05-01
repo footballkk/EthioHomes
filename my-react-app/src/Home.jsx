@@ -34,57 +34,61 @@ return(
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 <div className="container-fluid">
 <a className="navbar-brand" href="#">
-  <img
-    className="awra"
-    src={MyLogo}
-    alt="Logo"
-    style={{ width: '40px', height: '40px' }}
-  />
-  <b>HomeEase</b>
+<img
+className="awra"
+src={MyLogo}
+alt="Logo"
+style={{ width: '40px', height: '40px' }}
+/>
+<b>HomeEase</b>
 </a>
 
 <button
-  className="navbar-toggler"
-  type="button"
-  data-bs-toggle="collapse"
-  data-bs-target="#navbarNav"
-  aria-controls="navbarNav"
-  aria-expanded="false"
-  aria-label="Toggle navigation"
+className="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navbarNav"
+aria-controls="navbarNav"
+aria-expanded="false"
+aria-label="Toggle navigation"
 >
-  <span className="navbar-toggler-icon"></span>
+<span className="navbar-toggler-icon"></span>
 </button>
 
 <div className="collapse navbar-collapse" id="navbarNav">
-  <ul className="navbar-nav ms-auto">
-    <li className="nav-item">
-      <a className="nav-link active" href="#home">Home</a>
-    </li>
-    <li className="nav-item">
-      <a className="nav-link" href="#about1">About</a>
-    </li>
-    <li className="nav-item">
-      <a className="nav-link" href="#contact">Contact</a>
-    </li>
+<ul className="navbar-nav ms-auto">
+<li className="nav-item">
+  <a className="nav-link active" href="#home">Home</a>
+</li>
+<li className="nav-item">
+  <a className="nav-link" href="#about1">About</a>
+</li>
+<li className="nav-item">
+  <a className="nav-link" href="#contact">Contact</a>
+</li>
 
-    {/* Login Button */}
-    <li className="nav-item">
-      <button className="nav-link btn btn-link text-white" onClick={handleOpenModal}>
-        Login
-      </button>
-    </li>
+{/* Login Button */}
+<li className="nav-item">
+  <button className="nav-link btn btn-link text-white" onClick={handleOpenModal}>
+    Login
+  </button>
+</li>
 
-    {/* 🌐 Language Buttons */}
-    <li className="nav-item">
-      <button className="btn btn-sm btn-light mx-1" onClick={() => i18n.changeLanguage('en')}>English</button>
-    </li>
-    <li className="nav-item">
-      <button className="btn btn-sm btn-light mx-1" onClick={() => i18n.changeLanguage('am')}>አማርኛ</button>
-    </li>
-    <li className="nav-item">
-      <button className="btn btn-sm btn-light mx-1" onClick={() => i18n.changeLanguage('om')}>Afaan Oromoo</button>
-    </li>
-  </ul>
+{/* 🌐 Language Buttons */}
+<li className="nav-item">
+<select
+className="form-select form-select-sm"
+style={{ width: '150px' }}
+defaultValue="en"
+onChange={(e) => i18n.changeLanguage(e.target.value)}
+>
+<option value="en">English</option>
+<option value="am">አማርኛ</option>
+<option value="om">Afaan Oromoo</option>
+</select>
+</li>
+
+</ul>
 </div>
 </div>
 </nav>
@@ -96,33 +100,33 @@ return(
 
 {!showSearch ? (
 <div className="text-center mt-4">
-  <button className="btn btn-primary" onClick={() => setShowSearch(true)}>
-      🔍 Start Property Search 
-  </button>
+<button className="btn btn-primary" onClick={() => setShowSearch(true)}>
+  🔍 Start Property Search 
+</button>
 </div>
 ) : (
 <div className="col-lg-6 mx-auto mt-4 p-4">
-  <h3 className="text-center search line mb-4">Search Filters</h3>
-  <form>
-    <div className="mb-3">
-      <label>Location</label>
-      <input type="text" className="form-control" placeholder="Enter location" />
-    </div>
-    <div className="mb-3">
-      <label>Price Range</label>
-      <div className="d-flex gap-2">
-        <input type="number" className="form-control" placeholder="Min" />
-        <input type="number" className="form-control" placeholder="Max" />
-      </div>
-    </div>
-    <div className="mb-3">
-      <label>Size (sq. m)</label>
-      <input type="number" className="form-control" placeholder="Enter size" />
-    </div>
-    <div className="text-center">
-      <button type="submit" className="btn btn-primary">Search</button>
-    </div>
-  </form>
+<h3 className="text-center search line mb-4">Search Filters</h3>
+<form>
+<div className="mb-3">
+  <label>Location</label>
+  <input type="text" className="form-control" placeholder="Enter location" />
+</div>
+<div className="mb-3">
+  <label>Price Range</label>
+  <div className="d-flex gap-2">
+    <input type="number" className="form-control" placeholder="Min" />
+    <input type="number" className="form-control" placeholder="Max" />
+  </div>
+</div>
+<div className="mb-3">
+  <label>Size (sq. m)</label>
+  <input type="number" className="form-control" placeholder="Enter size" />
+</div>
+<div className="text-center">
+  <button type="submit" className="btn btn-primary">Search</button>
+</div>
+</form>
 </div>
 )}
 </div>
@@ -170,15 +174,15 @@ Ababa to regional cities.
 <div className="about-card shadow-lg p-4 rounded">
 <h2 className="text-center text-primary mb-4">About HomeEase</h2>
 <p className="text-center mb-4 text-muted">
-  HomeEase is a leading platform designed to connect home buyers and sellers in Ethiopia.
-  Our goal is to make property transactions seamless, efficient, and secure for all.
+HomeEase is a leading platform designed to connect home buyers and sellers in Ethiopia.
+Our goal is to make property transactions seamless, efficient, and secure for all.
 </p>
 <p>
-  HomeEase allows sellers to list their properties easily, with detailed information including location, price, size, and amenities.
-  Buyers can explore various listings, filter based on their needs, and receive instant notifications when new listings are posted.
+HomeEase allows sellers to list their properties easily, with detailed information including location, price, size, and amenities.
+Buyers can explore various listings, filter based on their needs, and receive instant notifications when new listings are posted.
 </p>
 <p>
-  Our mission is to revolutionize the property market in Ethiopia by making property transactions faster, easier, and more reliable for both buyers and sellers.
+Our mission is to revolutionize the property market in Ethiopia by making property transactions faster, easier, and more reliable for both buyers and sellers.
 </p>
 </div>
 </div>
@@ -186,24 +190,24 @@ Ababa to regional cities.
 <div className="about-card shadow-lg p-4 rounded">
 <h2 className="text-center text-primary mb-4">Our Services</h2>
 <div className="service-item mb-3">
-  <i className="fas fa-home service-icon"></i>
-  <p><strong>Property Listings:</strong> Sellers can easily list their properties with full details.</p>
+<i className="fas fa-home service-icon"></i>
+<p><strong>Property Listings:</strong> Sellers can easily list their properties with full details.</p>
 </div>
 <div className="service-item mb-3">
-  <i className="fas fa-search service-icon"></i>
-  <p><strong>Home Search:</strong> Buyers can search for homes by location, price, or features.</p>
+<i className="fas fa-search service-icon"></i>
+<p><strong>Home Search:</strong> Buyers can search for homes by location, price, or features.</p>
 </div>
 <div className="service-item mb-3">
-  <i className="fas fa-bell service-icon"></i>
-  <p><strong>Instant Alerts:</strong> Buyers receive instant notifications for matching properties.</p>
+<i className="fas fa-bell service-icon"></i>
+<p><strong>Instant Alerts:</strong> Buyers receive instant notifications for matching properties.</p>
 </div>
 <div className="service-item mb-3">
-  <i className="fas fa-shield-alt service-icon"></i>
-  <p><strong>Security:</strong> We ensure secure communication between buyers and sellers.</p>
+<i className="fas fa-shield-alt service-icon"></i>
+<p><strong>Security:</strong> We ensure secure communication between buyers and sellers.</p>
 </div>
 <div className="service-item mb-3">
-  <i className="fas fa-globe service-icon"></i>
-  <p><strong>Nationwide Reach:</strong> Connecting users from all across Ethiopia.</p>
+<i className="fas fa-globe service-icon"></i>
+<p><strong>Nationwide Reach:</strong> Connecting users from all across Ethiopia.</p>
 </div>
 </div>
 </div>
@@ -218,16 +222,16 @@ Ababa to regional cities.
 <p className="text-center mb-4"><b>We'd love to hear from you. Feel free to reach out for any questions or inquiries!</b></p>
 <form>
 <div className="mb-3">
-  <label htmlFor="name" className="form-label">Full Name</label>
-  <input type="text" className="form-control" id="name" placeholder="Enter your full name" />
+<label htmlFor="name" className="form-label">Full Name</label>
+<input type="text" className="form-control" id="name" placeholder="Enter your full name" />
 </div>
 <div className="mb-3">
-  <label htmlFor="email" className="form-label">Email Address</label>
-  <input type="email" className="form-control" id="email" placeholder="Enter your email address" />
+<label htmlFor="email" className="form-label">Email Address</label>
+<input type="email" className="form-control" id="email" placeholder="Enter your email address" />
 </div>
 <div className="mb-3">
-  <label htmlFor="message" className="form-label">Your Message</label>
-  <textarea className="form-control" id="message" rows="4" placeholder="Write your message here..."></textarea>
+<label htmlFor="message" className="form-label">Your Message</label>
+<textarea className="form-control" id="message" rows="4" placeholder="Write your message here..."></textarea>
 </div>
 <button type="submit" className="btn btn-primary w-100">Send Message</button>
 </form>
@@ -238,17 +242,17 @@ Ababa to regional cities.
 <h4 className="mb-3">Address</h4>
 <p>HomeEase, Arba Minch, Ethiopia</p>
 <h4 className="mt-3 mb-3">Contact Info</h4>
-<p><strong>Phone:</strong> +251 49812674</p>
+<p><strong>Phone:</strong> +251 949812674</p>
 <p><strong>Email:</strong> seid21225@gmail.com</p>
 <h4 className="mt-3 mb-3">Follow Us</h4>
 <a href="https://facebook.com" className="btn btn-outline-primary me-2">
-  <i className="fab fa-facebook-f"></i>
+<i className="fab fa-facebook-f"></i>
 </a>
 <a href="https://twitter.com" className="btn btn-outline-info me-2">
-  <i className="fab fa-twitter"></i>
+<i className="fab fa-twitter"></i>
 </a>
 <a href="https://instagram.com" className="btn btn-outline-danger">
-  <i className="fab fa-instagram"></i>
+<i className="fab fa-instagram"></i>
 </a>
 </div>
 </div>
