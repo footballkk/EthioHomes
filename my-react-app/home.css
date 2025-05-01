@@ -270,35 +270,3 @@ h2 {
 }
 }
 /* ===== Buyer Dashboard Responsive Enhancements ===== */
-@media (min-width: 768px) {
-  .buyerPage {
-    padding: 3rem;
-  }
-
-  .property-list {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .property-card {
-    padding: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .buyerPage {
-    padding: 4rem;
-  }
-
-  .property-card {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  }
-
-  .property-card:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .property-image {
-    height: 240px;
-  }
-}
