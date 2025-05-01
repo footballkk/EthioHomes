@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer'; // adjust the path if needed
+
 const BuyerDashboard = () => {
   const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem('user');
     toast.success('Logged out successfully!', {
@@ -15,6 +17,7 @@ const BuyerDashboard = () => {
       autoClose: 1500,
     });
   };
+
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -28,16 +31,12 @@ const BuyerDashboard = () => {
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className="buyer-dashboard">
       <ToastContainer />
-      <main style={{ flex: 1 }} className="buyerPage">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <main className="buyerPage">
+        <div className="buyer-header">
           <h1>🏠 Welcome, Buyer!</h1>
-          <button
-            onClick={handleLogout}
-            style={{ padding: '2px 4px', fontSize: '14px',width:'auto', minWidth:'unset'}}
-            className="btn btn-danger"
-          >
+          <button onClick={handleLogout} className="btn btn-danger logout-btn">
             Logout
           </button>
         </div>
