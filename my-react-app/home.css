@@ -333,3 +333,18 @@ h2 {
     margin-top: 0;
   }
 }
+.property-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Prevents horizontal overflow */
+}
+
+.property-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
