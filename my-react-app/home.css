@@ -353,8 +353,8 @@ h2 {
   background-color: #fff;
   transition: transform 0.2s ease;
   /* overflow-wrap: break-word;  /* This handles long words or URLs */
-  /* word-wrap: break-word;
-  word-break: break-word;  */
+  word-wrap: break-word;
+  word-break: break-word; 
 }
 
 .property-card:hover {
