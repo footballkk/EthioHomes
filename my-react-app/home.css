@@ -8,6 +8,7 @@ body {
   background-attachment: fixed;
   background-color: #f8f9fa;
 }
+
 /* ===== Main Container ===== */
 .contain1 {
   background-color: rgba(240, 248, 255, 0.822);
@@ -124,7 +125,6 @@ textarea.form-control {
   object-fit: cover;
   border-radius: 0.75rem;
   margin-bottom: 1rem;
-  border: 2px solid red;
 }
 .property-card h3 {
   margin: 0.5rem 0;
@@ -269,4 +269,3 @@ h2 {
   font-size: 2rem;
 }
 }
-/* ===== Buyer Dashboard Responsive Enhancements ===== */
