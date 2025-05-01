@@ -335,16 +335,34 @@ h2 {
 }
 .property-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
   width: 100%;
   box-sizing: border-box;
-  overflow-x: hidden; /* Prevents horizontal overflow */
+  overflow-x: hidden;
+  padding: 0 1rem;
 }
 
 .property-card {
   width: 100%;
   box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fff;
+  transition: transform 0.2s ease;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+}
+
+.property-image {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
