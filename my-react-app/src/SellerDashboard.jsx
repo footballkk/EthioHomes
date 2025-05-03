@@ -8,6 +8,7 @@ function SellerDashboard() {
 const [formData, setFormData] = useState({
 type: '',
 location: '',
+title: '',
 size: '',
 minPrice: '',
 maxPrice: '',
@@ -37,6 +38,7 @@ const data = new FormData();
 data.append('type', formData.type);
 data.append('seller_id', seller_id);
 data.append('location', formData.location);
+data.append('title', formData.title);
 data.append('size', formData.size);
 data.append('minPrice', formData.minPrice);
 data.append('maxPrice', formData.maxPrice);
@@ -55,6 +57,7 @@ toast.success('Home posted successfully!');
 setFormData({
   type: '',
   location: '',
+  title: '',
   size: '',
   minPrice: '',
   maxPrice: '',
@@ -107,6 +110,14 @@ return (
   value={formData.location}
   onChange={handleChange}
   required /><br />
+  <input
+  type="text"
+  name="title"
+  placeholder="Property Title"
+  value={formData.title}
+  onChange={handleChange}
+  required
+/><br />
 <input
   type="text"
   name="size"
