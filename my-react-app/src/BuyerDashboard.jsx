@@ -48,6 +48,9 @@ Logout
 ) : (
 properties.map((property) => (
 <div key={property._id} className="property-card">
+{property.title && (
+      <h3 className="property-title">{property.title}</h3>
+)}
 {property.image && (
 <img
 src={property.image}
