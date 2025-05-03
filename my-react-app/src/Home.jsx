@@ -7,6 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useTranslation } from 'react-i18next';
 import Footer from './components/Footer'; // adjust the path if needed
 import MyLogo from '../MyLogo.png'; // adjust path based on your folder
+import axios from "axios";
 const Home = () => {
 const { t } = useTranslation();
 const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -18,7 +19,7 @@ setModalIsOpen(true);
 // Function to close modal without doing anything
 const handleCloseModal = () => {
 setModalIsOpen(false);
-};
+};};
 // Function to handle role selection and navigation
 const handleRoleSelect = (role) => {
 setModalIsOpen(false); // Close the modal after role selection
@@ -28,7 +29,35 @@ navigate('/auth/buyer-login'); // Navigate to buyer login page
 navigate('/auth/seller-login'); // Navigate to seller login page
 }
 };
+const HomePage = () => {
 const [showSearch, setShowSearch] = useState(false);
+const [searchParams, setSearchParams] = useState({
+location: "",
+minPrice: "",
+maxPrice: "",
+size: "",
+type: "",
+});
+const [results, setResults] = useState([]);
+const handleInputChange = (e) => {
+setSearchParams({
+...searchParams,
+[e.target.name]: e.target.value,
+});
+};
+const handleSearchSubmit = async (e) => {
+e.preventDefault();
+const query = new URLSearchParams();
+Object.entries(searchParams).forEach(([key, value]) => {
+if (value) query.append(key, value);
+});
+try {
+const res = await axios.get(`http://localhost:5000/properties?${query.toString()}`);
+setResults(res.data);
+} catch (err) {
+console.error("Search failed", err);
+}
+};
 return(
 <div>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -58,20 +87,20 @@ aria-label="Toggle navigation"
 <div className="collapse navbar-collapse" id="navbarNav">
 <ul className="navbar-nav ms-auto">
 <li className="nav-item">
-  <a className="nav-link active" href="#home">Home</a>
+<a className="nav-link active" href="#home">Home</a>
 </li>
 <li className="nav-item">
-  <a className="nav-link" href="#about1">About</a>
+<a className="nav-link" href="#about1">About</a>
 </li>
 <li className="nav-item">
-  <a className="nav-link" href="#contact">Contact</a>
+<a className="nav-link" href="#contact">Contact</a>
 </li>
 
 {/* Login Button */}
 <li className="nav-item">
-  <button className="nav-link btn btn-link text-white" onClick={handleOpenModal}>
-    Login
-  </button>
+<button className="nav-link btn btn-link text-white" onClick={handleOpenModal}>
+Login
+</button>
 </li>
 
 {/* 🌐 Language Buttons */}
@@ -101,7 +130,7 @@ onChange={(e) => i18n.changeLanguage(e.target.value)}
 {!showSearch ? (
 <div className="text-center mt-4">
 <button className="btn btn-primary" onClick={() => setShowSearch(true)}>
-  🔍 Start Property Search 
+🔍 Start Property Search 
 </button>
 </div>
 ) : (
@@ -109,24 +138,55 @@ onChange={(e) => i18n.changeLanguage(e.target.value)}
 <h3 className="text-center search line mb-4">Search Filters</h3>
 <form>
 <div className="mb-3">
-  <label>Location</label>
-  <input type="text" className="form-control" placeholder="Enter location" />
+<label>Property Type</label>
+<select name="type" className="form-control" onChange={handleInputChange}>
+<option value="">Any</option>
+<option value="apartment">Apartment</option>
+<option value="house">House</option>
+<option value="villa">Villa</option>
+</select>
+<label>Location</label>
+<input type="text" className="form-control" name="location" placeholder="Enter location" />
 </div>
 <div className="mb-3">
-  <label>Price Range</label>
-  <div className="d-flex gap-2">
-    <input type="number" className="form-control" placeholder="Min" />
-    <input type="number" className="form-control" placeholder="Max" />
-  </div>
+<label>Price Range</label>
+<div className="d-flex gap-2">
+<input type="number" className="form-control" name="minPrice" placeholder="Enter minPrice" />
+<input type="number" className="form-control" name="maxPrice" placeholder="Enter maxPrice" />
+</div>
 </div>
 <div className="mb-3">
-  <label>Size (sq. m)</label>
-  <input type="number" className="form-control" placeholder="Enter size" />
+<label>Size (sq. m)</label>
+<input type="number" className="form-control" name="size" placeholder="Enter size" />
 </div>
 <div className="text-center">
-  <button type="submit" className="btn btn-primary">Search</button>
+<button type="submit" className="btn btn-primary">Search</button>
 </div>
 </form>
+{results.length > 0 && (
+<div className="search-results mt-5">
+<h4 className="text-center mb-3">Search Results:</h4>
+{results.map((property) => (
+<div key={property._id} className="property-card mb-3 p-3 border rounded">
+{property.image && (
+  <img
+    src={property.image}
+    alt="Home"
+    className="property-image mb-2"
+    style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
+  />
+)}
+<p><strong>Title:</strong> {property.title || "No title"}</p>
+<p><strong>Type:</strong> {property.type}</p>
+<p><strong>Location:</strong> {property.location}</p>
+<p><strong>Size:</strong> {property.size}</p>
+<p><strong>Min Price:</strong> {property.minPrice ? `ETB ${property.minPrice}` : "N/A"}</p>
+<p><strong>Max Price:</strong> {property.maxPrice ? `ETB ${property.maxPrice}` : "N/A"}</p>
+<p><strong>Description:</strong> {property.description || "No description"}</p>
+</div>
+))}
+</div>
+)}
 </div>
 )}
 </div>
