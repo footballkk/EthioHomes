@@ -69,7 +69,7 @@ textarea.form-control {
 .property-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color:#3498db;
+  font-style: italic;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin-bottom: 8px;
 }
