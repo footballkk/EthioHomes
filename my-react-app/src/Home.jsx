@@ -251,7 +251,7 @@ Our mission is to revolutionize the property market in Ethiopia by making proper
 <a href="https://twitter.com" className="btn btn-outline-info me-2">
 <i className="fab fa-twitter"></i>
 </a>
-<a href="https://instagram.com/@redwan1686" className="btn btn-outline-danger">
+<a href="https://instagram.com/@redwan1686/" className="btn btn-outline-danger">
 <i className="fab fa-instagram"></i>
 </a>
 </div>
