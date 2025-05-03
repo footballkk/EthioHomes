@@ -245,13 +245,13 @@ Our mission is to revolutionize the property market in Ethiopia by making proper
 <p><strong>Phone:</strong> +251 949812674</p>
 <p><strong>Email:</strong> seid21225@gmail.com</p>
 <h4 className="mt-3 mb-3">Follow Us</h4>
-<a href="https://facebook.com" className="btn btn-outline-primary me-2">
+<a href="https://facebook.com/@redwan.seid.353241" className="btn btn-outline-primary me-2">
 <i className="fab fa-facebook-f"></i>
 </a>
 <a href="https://twitter.com" className="btn btn-outline-info me-2">
 <i className="fab fa-twitter"></i>
 </a>
-<a href="https://instagram.com" className="btn btn-outline-danger">
+<a href="https://instagram.com/@redwan1686" className="btn btn-outline-danger">
 <i className="fab fa-instagram"></i>
 </a>
 </div>
