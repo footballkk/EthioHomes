@@ -6,7 +6,7 @@ import AuthSelectionModal from './AuthSelectionModal';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useTranslation } from 'react-i18next';
 import Footer from './components/Footer'; // adjust the path if needed
-import MyLogo from '../MyLogo.png'; // adjust path based on your folder
+import newLogo from '../newLogo.png'; // adjust path based on your folder
 import axios from "axios";
 const Home = () => {
 const { t } = useTranslation();
@@ -64,7 +64,7 @@ return(
 <a className="navbar-brand" href="#">
 <img
 className="awra"
-src={MyLogo}
+src={newLogo}
 alt="Logo"
 style={{ width: '40px', height: '40px' }}
 />
