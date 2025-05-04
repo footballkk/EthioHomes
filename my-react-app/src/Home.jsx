@@ -52,7 +52,7 @@ Object.entries(searchParams).forEach(([key, value]) => {
 if (value) query.append(key, value);
 });
 try {
-const res = await axios.get(`http://localhost:5000/properties?${query.toString()}`);
+const res = await axios.get(`https://homeeasebackend.onrender.com/properties?${query.toString()}`);
 setResults(res.data);
 } catch (err) {
 console.error("Search failed", err);
