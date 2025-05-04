@@ -117,7 +117,7 @@ onChange={(e) => i18n.changeLanguage(e.target.value)}
 </nav>
 <div className="contain1">
 <div className="text-center home1">
-<h2 className="home line">Welcome to Home Listing</h2>
+<h2 className="home line">Welcome to HomeEase</h2>
 <p className="listing line">Find your dream house here!</p>
 </div>
 {!showSearch ? (
@@ -187,7 +187,7 @@ style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
 <div className="row contain1" id="container">
 <div className="col-md-12 col-lg-6 mb-4">
 <div>
-<center><em>Welcome to HomeEase</em></center><br />
+<center><em>What does HomeEase do?</em></center><br />
 <div className="line home">
 Connecting home buyers and sellers across Ethiopia through asmart, 
 efficient, and easy to use platform designed for every region
