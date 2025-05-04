@@ -19,7 +19,7 @@ setModalIsOpen(true);
 // Function to close modal without doing anything
 const handleCloseModal = () => {
 setModalIsOpen(false);
-};};
+};
 // Function to handle role selection and navigation
 const handleRoleSelect = (role) => {
 setModalIsOpen(false); // Close the modal after role selection
@@ -29,7 +29,6 @@ navigate('/auth/buyer-login'); // Navigate to buyer login page
 navigate('/auth/seller-login'); // Navigate to seller login page
 }
 };
-const HomePage = () => {
 const [showSearch, setShowSearch] = useState(false);
 const [searchParams, setSearchParams] = useState({
 location: "",
@@ -71,7 +70,6 @@ style={{ width: '40px', height: '40px' }}
 />
 <b>HomeEase</b>
 </a>
-
 <button
 className="navbar-toggler"
 type="button"
@@ -83,7 +81,6 @@ aria-label="Toggle navigation"
 >
 <span className="navbar-toggler-icon"></span>
 </button>
-
 <div className="collapse navbar-collapse" id="navbarNav">
 <ul className="navbar-nav ms-auto">
 <li className="nav-item">
@@ -95,14 +92,12 @@ aria-label="Toggle navigation"
 <li className="nav-item">
 <a className="nav-link" href="#contact">Contact</a>
 </li>
-
 {/* Login Button */}
 <li className="nav-item">
 <button className="nav-link btn btn-link text-white" onClick={handleOpenModal}>
 Login
 </button>
 </li>
-
 {/* 🌐 Language Buttons */}
 <li className="nav-item">
 <select
@@ -116,7 +111,6 @@ onChange={(e) => i18n.changeLanguage(e.target.value)}
 <option value="om">Afaan Oromoo</option>
 </select>
 </li>
-
 </ul>
 </div>
 </div>
@@ -126,7 +120,6 @@ onChange={(e) => i18n.changeLanguage(e.target.value)}
 <h2 className="home line">Welcome to Home Listing</h2>
 <p className="listing line">Find your dream house here!</p>
 </div>
-
 {!showSearch ? (
 <div className="text-center mt-4">
 <button className="btn btn-primary" onClick={() => setShowSearch(true)}>
@@ -169,12 +162,12 @@ onChange={(e) => i18n.changeLanguage(e.target.value)}
 {results.map((property) => (
 <div key={property._id} className="property-card mb-3 p-3 border rounded">
 {property.image && (
-  <img
-    src={property.image}
-    alt="Home"
-    className="property-image mb-2"
-    style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
-  />
+<img
+src={property.image}
+alt="Home"
+className="property-image mb-2"
+style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
+/>
 )}
 <p><strong>Title:</strong> {property.title || "No title"}</p>
 <p><strong>Type:</strong> {property.type}</p>
