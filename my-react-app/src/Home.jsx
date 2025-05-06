@@ -8,12 +8,13 @@ import { useTranslation } from 'react-i18next';
 import Footer from './components/Footer'; // adjust the path if needed
 import newLogo from '../newLogo.png'; // adjust path based on your folder
 import axios from "axios";
-import home1 from '../assets/images/home1.jfif';
-import home2 from '../assets/images/home2.jfif';
-import home3 from '../assets/images/home3.jfif';
-import home4 from '../assets/images/home4.jfif';
-import home5 from '../assets/images/home5.jfif';
-const images = [home1, home2, home3, home4, home5]; 
+const images = [
+    "/images/home1.jfif",
+    "/images/home2.jfif",
+    "/images/home3.jfif",
+    "/images/home4.jfif",
+    "/images/home5.jfif",
+  ];
 const Home = () => {
 const { t } = useTranslation();
 const [modalIsOpen, setModalIsOpen] = useState(false);
