@@ -8,10 +8,10 @@ import Footer from './components/Footer'; // adjust the path if needed
 function SellerDashboard() {
 const [paymentMade, setPaymentMade] = useState(false);
 const [loading, setLoading] = useState(false);
-const handleMockPayment = () => {
-alert("Payment successful!");
-setPaymentMade(true);
-};
+// const handleMockPayment = () => {
+// alert("Payment successful!");
+// setPaymentMade(true);
+// };
 const [formData, setFormData] = useState({
 type: '',
 location: '',
@@ -55,6 +55,7 @@ const data = await response.json();
 if (response.ok) {
 const chapaUrl = data.payment_url;
 window.location.href = chapaUrl;
+setPaymentMade(true); 
 } else {
 toast.error('Payment initiation failed!');
 }
