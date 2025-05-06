@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../home.css';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer'; // adjust the path if needed
 
 function SellerDashboard() {
-const [paymentMade, setPaymentMade] = useState(false);
+const [paymentMade, setPaymentMade] = useState(localStorage.getItem('paymentMade') === 'true');
 const [loading, setLoading] = useState(false);
 // const handleMockPayment = () => {
 // alert("Payment successful!");
@@ -24,6 +24,15 @@ image: null,
 });
 const seller_id = localStorage.getItem('seller_id');
 const navigate = useNavigate();
+useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get('status');
+  if (status === 'success') {
+    setPaymentMade(true);
+    localStorage.setItem('paymentMade', 'true');
+    toast.success('Payment confirmed. You can now post your home!');
+  }
+}, []);
 const handleLogout = () => {
 localStorage.removeItem('seller_id');
 toast.success('Logged out successfully!', {
@@ -92,6 +101,8 @@ if (contentType && contentType.includes('application/json')) {
 const result = await response.json();
 if (response.ok) {
   toast.success('Home posted successfully!');
+  setPaymentMade(false);
+localStorage.removeItem('paymentMade');
   setFormData({
     type: '',
     location: '',
