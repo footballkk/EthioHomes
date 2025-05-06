@@ -8,6 +8,13 @@ import { useTranslation } from 'react-i18next';
 import Footer from './components/Footer'; // adjust the path if needed
 import newLogo from '../newLogo.png'; // adjust path based on your folder
 import axios from "axios";
+const images = [
+    process.env.PUBLIC_URL + "/images/home1.jfif",
+    process.env.PUBLIC_URL + "/images/home2.jfif",
+    process.env.PUBLIC_URL + "/images/home3.jfif",
+    process.env.PUBLIC_URL + "/images/home4.jfif",
+    process.env.PUBLIC_URL + "/images/home5.jfif",
+  ]; 
 const Home = () => {
 const { t } = useTranslation();
 const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -56,7 +63,7 @@ setResults(res.data);
 } catch (err) {
 console.error("Search failed", err);
 }
-};
+}; 
 return(
 <div>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -220,6 +227,13 @@ Ababa to regional cities.
 </div>
 </div>
 </section>
+<div className="scroll-container">
+      <div className="scroll-track">
+        {images.concat(images).map((img, index) => (
+          <img src={img} alt={`home-${index}`} key={index} className="scroll-image" />
+        ))}
+      </div>
+    </div>
 <section className="about" id="about1">
 <div className="container mt-5">
 <div className="row">

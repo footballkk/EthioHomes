@@ -372,4 +372,45 @@ h2 {
   object-fit: cover;
   border-radius: 5px;
 }
+.scroll-container {
+  width: 100%;
+  overflow: hidden;
+  background: #f5f5f5;
+  padding: 20px 0;
+}
+
+.scroll-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 25s linear infinite;
+}
+
+.scroll-image {
+  width: 80vw;            /* Responsive: takes up 80% of viewport width */
+  max-width: 300px;       /* Limits the width on large screens */
+  height: auto;           /* Maintains image aspect ratio */
+  object-fit: cover;
+  margin-right: 16px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* Smooth horizontal scroll animation */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .scroll-image {
+    width: 90vw;
+    max-width: none;
+    margin-right: 10px;
+  }
+}
 
