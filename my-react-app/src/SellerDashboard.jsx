@@ -42,7 +42,7 @@ setFormData({ ...formData, [name]: value });
 const handlePayment = async () => {
 setLoading(true);
 try {
-const response = await fetch('https://homeeasebackend.onrender.com/create-payment', {
+const response = await fetch('https://homeeasebackend.onrender.com/api/create-payment', {
 method: 'POST',
 body: JSON.stringify({
   amount: 10000, // This is for 100 ETB, Chapa accepts amounts in the smallest unit (e.g., cents)
@@ -82,7 +82,7 @@ data.append('maxPrice', formData.maxPrice);
 data.append('description', formData.description);
 data.append('image', formData.image);
 try {
-const response = await fetch('https://homeeasebackend.onrender.com/properties', {
+const response = await fetch('https://homeeasebackend.onrender.com/api/properties', {
 method: 'POST',
 body: data,
 });
