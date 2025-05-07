@@ -29,10 +29,12 @@ const handleSubmit = async (e) => {
       });
       alert('Login successful!');
       console.log(response.data.user.id);
-      localStorage.setItem('seller_id', response.data.user.id);
+      const user = response.data.user;
+  localStorage.setItem('seller_id', user.id || user._id);
+  localStorage.setItem('seller_name', user.full_name || user.name); // ✅ Store full name
+  localStorage.setItem('seller_email', user.email); 
  // or response.data.user._id
       // console.log(response.data);
-
       // ✅ Redirect based on path
       const path = window.location.pathname;
       if (path.includes('buyer')) {

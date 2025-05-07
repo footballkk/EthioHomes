@@ -49,31 +49,36 @@ setFormData({ ...formData, [name]: value });
 }
 };
 const handlePayment = async () => {
-setLoading(true);
-try {
-const response = await fetch('https://homeeasebackend.onrender.com/api/create-payment', {
-method: 'POST',
-body: JSON.stringify({
-  amount: 10000, // This is for 100 ETB, Chapa accepts amounts in the smallest unit (e.g., cents)
-}),
-headers: {
-  'Content-Type': 'application/json',
-},
-});
-const data = await response.json();
-if (response.ok) {
-const chapaUrl = data.payment_url;
-window.location.href = chapaUrl;
-setPaymentMade(true); 
-} else {
-toast.error('Payment initiation failed!');
-}
-} catch (error) {
-console.error('Payment error:', error);
-toast.error('Error initiating payment.');
-} finally {
-setLoading(false);
-}
+  setLoading(true);
+  const tx_ref = `tx-${Date.now()}`;
+  const full_name = localStorage.getItem('seller_name') || 'HomeEase Seller';
+  const email = localStorage.getItem('seller_email') || 'test@example.com'; // Optional: update if email exists
+  try {
+    const response = await fetch('https://homeeasebackend.onrender.com/api/create-payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        full_name,
+        email,
+        amount: 10000,
+        tx_ref,
+      }),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      const chapaUrl = data.data.checkout_url; // ✅ Ensure you're accessing data.data.checkout_url
+      window.location.href = chapaUrl;
+    } else {
+      toast.error('Payment initiation failed!');
+    }
+  } catch (error) {
+    console.error('Payment error:', error);
+    toast.error('Error initiating payment.');
+  } finally {
+    setLoading(false);
+  }
 };
 const handleSubmit = async (e) => {
 e.preventDefault();
