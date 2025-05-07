@@ -27,7 +27,7 @@ const navigate = useNavigate();
 useEffect(() => {
   const params = new URLSearchParams(window.location.search);
   const status = params.get('status');
-  if (status === 'success') {
+  if (status === 'success' || localStorage.getItem('paymentMade') === 'true') {
     setPaymentMade(true);
     localStorage.setItem('paymentMade', 'true');
     toast.success('Payment confirmed. You can now post your home!');
@@ -48,37 +48,10 @@ setFormData({ ...formData, image: files[0] });
 setFormData({ ...formData, [name]: value });
 }
 };
-const handlePayment = async () => {
-  setLoading(true);
-  const tx_ref = `tx-${Date.now()}`;
-  const full_name = localStorage.getItem('seller_name') || 'HomeEase Seller';
-  const email = localStorage.getItem('seller_email') || 'test@example.com'; // Optional: update if email exists
-  try {
-    const response = await fetch('https://homeeasebackend.onrender.com/api/create-payment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        full_name,
-        email,
-        amount: 10000,
-        tx_ref,
-      }),
-    });
-    const data = await response.json();
-    if (response.ok) {
-      const chapaUrl = data.data.checkout_url; // ✅ Ensure you're accessing data.data.checkout_url
-      window.location.href = chapaUrl;
-    } else {
-      toast.error('Payment initiation failed!');
-    }
-  } catch (error) {
-    console.error('Payment error:', error);
-    toast.error('Error initiating payment.');
-  } finally {
-    setLoading(false);
-  }
+const handlePayment = () => {
+  toast.success('Mock payment successful!');
+  setPaymentMade(true);
+  localStorage.setItem('paymentMade', 'true');
 };
 const handleSubmit = async (e) => {
 e.preventDefault();
