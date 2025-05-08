@@ -64,6 +64,17 @@ setResults(res.data);
 console.error("Search failed", err);
 }
 }; 
+useEffect(() => {
+  const savedLang = localStorage.getItem('lang');  // Get saved language from localStorage
+  if (savedLang && savedLang !== i18n.language) {
+    i18n.changeLanguage(savedLang);  // Change language to the saved one
+  }
+}, []);
+const handleLangChange = (e) => {
+  const newLang = e.target.value;
+  i18n.changeLanguage(newLang);  // Change language in react-i18next
+  localStorage.setItem('lang', newLang);  // Save the selected language in localStorage
+};
 return(
 <div>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -108,20 +119,21 @@ Login
 {/* 🌐 Language Buttons */}
 <li className="nav-item">
 <select
-className="form-select form-select-sm"
-style={{ width: '150px' }}
-defaultValue="en"
-onChange={(e) => i18n.changeLanguage(e.target.value)}
+  className="form-select form-select-sm"
+  style={{ width: '150px' }}
+  value={i18n.language}  // Bind the current language
+  onChange={handleLangChange}  // Handle language change
 >
-<option value="en">English</option>
-<option value="am">አማርኛ</option>
-<option value="om">Afaan Oromoo</option>
+  <option value="en">English</option>
+  <option value="am">አማርኛ</option>
+  <option value="om">Afaan Oromoo</option>
 </select>
 </li>
 </ul>
 </div>
 </div>
 </nav>
+
 <div className="contain1">
 <div className="text-center home1">
 <h2 className="home line">Welcome to HomeEase</h2>

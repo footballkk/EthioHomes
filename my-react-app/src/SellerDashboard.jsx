@@ -8,10 +8,6 @@ import Footer from './components/Footer'; // adjust the path if needed
 function SellerDashboard() {
 const [paymentMade, setPaymentMade] = useState(localStorage.getItem('paymentMade') === 'true');
 const [loading, setLoading] = useState(false);
-// const handleMockPayment = () => {
-// alert("Payment successful!");
-// setPaymentMade(true);
-// };
 const [formData, setFormData] = useState({
 type: '',
 location: '',

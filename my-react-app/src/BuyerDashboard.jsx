@@ -5,7 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer'; // adjust the path if needed
+import { useTranslation } from 'react-i18next'; // Import at the top of your component
+function getTranslatedText(base, am, om, lang) {
+  if (lang === 'am') return am || base; // If the language is Amharic, show the Amharic translation
+  if (lang === 'om') return om || base; // If the language is Afaan Oromoo, show the Afaan Oromoo translation
+  return base; // Default to English if no language-specific translation is available
+}
 const BuyerDashboard = () => {
+const { i18n } = useTranslation();
+const currentLang = i18n.language; // 'en', 'am', or 'om'
 const [properties, setProperties] = useState([]);
 const navigate = useNavigate();
 const handleLogout = () => {
@@ -47,28 +55,40 @@ Logout
 <p>No properties available yet.</p>
 ) : (
 properties.map((property) => (
-<div key={property._id} className="property-card">
-{property.title && (
-      <h3 className="property-title">{property.title}</h3>
-)}
-{property.image && (
-<img
-src={property.image}
-alt="Home"
-className="property-image"
-/>
-)}
-<p><strong>Type:</strong> {property.type || "Not specified"}</p>
-<p><strong>Location:</strong> {property.location}</p>
-<p><strong>Size:</strong> {property.size}</p>
-<p><strong>Min Price:</strong> {property.minPrice ? `ETB ${property.minPrice}` : "N/A"}</p>
-<p><strong>Max Price:</strong> {property.maxPrice ? `ETB ${property.maxPrice}` : "N/A"}</p>
-<p><strong>Description:</strong> 
-{(property.description && property.description !== "null" && property.description !== "undefined" && property.description.trim() !== "")
-? property.description
-: "No description provided."}
-</p>
-</div>
+  <div key={property._id} className="property-card">
+    {property.title && (
+      <h3 className="property-title">
+        {getTranslatedText(
+          property.title,          // English title
+          property.title_am,       // Amharic title
+          property.title_om,       // Afaan Oromoo title
+          currentLang              // Current language
+        )}
+      </h3>
+    )}
+    {property.image && (
+      <img
+        src={property.image}
+        alt="Home"
+        className="property-image"
+      />
+    )}
+    <p><strong>Type:</strong> {property.type || "Not specified"}</p>
+    <p><strong>Location:</strong> {property.location}</p>
+    <p><strong>Size:</strong> {property.size}</p>
+    <p><strong>Min Price:</strong> {property.minPrice ? `ETB ${property.minPrice}` : "N/A"}</p>
+    <p><strong>Max Price:</strong> {property.maxPrice ? `ETB ${property.maxPrice}` : "N/A"}</p>
+    <p><strong>Description:</strong> 
+      {(property.description && property.description !== "null" && property.description !== "undefined" && property.description.trim() !== "")
+        ? getTranslatedText(
+            property.description,    // English description
+            property.description_am, // Amharic description
+            property.description_om, // Afaan Oromoo description
+            currentLang              // Current language
+          )
+        : "No description provided."}
+    </p>
+  </div>
 ))
 )}
 </div>
