@@ -1,21 +1,20 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import en from './locales/en/translation.json';
-import am from './locales/am/translation.json';
-import om from './locales/om/translation.json';
+import Backend from 'i18next-http-backend';
+
 i18n
-  .use(LanguageDetector)
+  .use(Backend)
   .use(initReactI18next)
   .init({
-    resources: {
-      en: { translation: en },
-      am: { translation: am },
-      om: { translation: om }
-    },
+    lng: 'en',
     fallbackLng: 'en',
+    debug: false,
+    backend: {
+      loadPath: '/locales/{{lng}}/translation.json'  // This path is served from /public
+    },
     interpolation: {
       escapeValue: false
     }
   });
+
 export default i18n;
