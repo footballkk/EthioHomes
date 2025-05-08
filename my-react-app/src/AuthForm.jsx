@@ -143,7 +143,6 @@ Already have an account?{' '}
 </div>
 );
 };
-
 const styles = {
 body: {
 fontFamily: 'Arial, sans-serif',
