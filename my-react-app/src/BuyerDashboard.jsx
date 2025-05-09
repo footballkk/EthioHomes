@@ -27,6 +27,7 @@ useEffect(() => {
 const fetchProperties = async () => {
 try {
 const response = await axios.get('https://homeeasebackend.onrender.com/properties');
+console.log('Fetched Properties:', response.data);
 setProperties(response.data);
 } catch (error) {
 console.error('Failed to fetch properties:', error);
