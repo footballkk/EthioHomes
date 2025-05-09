@@ -6,14 +6,13 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer'; // adjust the path if needed
 import { useTranslation } from 'react-i18next'; // Import at the top of your component
-function getTranslatedText(base, am, om, lang) {
+function getTranslatedText(base, am, lang) {
   if (lang === 'am') return am || base; // If the language is Amharic, show the Amharic translation
-  if (lang === 'om') return om || base; // If the language is Afaan Oromoo, show the Afaan Oromoo translation
   return base; // Default to English if no language-specific translation is available
 }
 const BuyerDashboard = () => {
 const { i18n } = useTranslation();
-const currentLang = i18n.language; // 'en', 'am', or 'om'
+const currentLang = i18n.language; // 'en', 'am'
 const [properties, setProperties] = useState([]);
 const navigate = useNavigate();
 const handleLogout = () => {
@@ -62,7 +61,6 @@ properties.map((property) => (
         {getTranslatedText(
           property.title,          // English title
           property.title_am,       // Amharic title
-          property.title_om,       // Afaan Oromoo title
           currentLang              // Current language
         )}
       </h3>
@@ -84,7 +82,6 @@ properties.map((property) => (
         ? getTranslatedText(
             property.description,    // English description
             property.description_am, // Amharic description
-            property.description_om, // Afaan Oromoo description
             currentLang              // Current language
           )
         : "No description provided."}

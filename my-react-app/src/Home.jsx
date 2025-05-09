@@ -126,7 +126,6 @@ Login
 >
   <option value="en">English</option>
   <option value="am">አማርኛ</option>
-  <option value="om">Afaan Oromoo</option>
 </select>
 </li>
 </ul>
