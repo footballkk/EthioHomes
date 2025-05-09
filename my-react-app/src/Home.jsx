@@ -1,5 +1,5 @@
 // src/Home.jsx
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../home.css';
 import AuthSelectionModal from './AuthSelectionModal';
@@ -16,7 +16,9 @@ const images = [
     "/images/home4.jfif",
     "/images/home5.jfif",
   ];
-  useEffect(() => {
+const Home = () => {
+const { t } = useTranslation();
+ useEffect(() => {
   const savedLang = localStorage.getItem('lang');  // Get saved language from localStorage
   if (savedLang && savedLang !== i18n.language) {
     i18n.changeLanguage(savedLang);  // Change language to the saved one
@@ -27,8 +29,6 @@ const handleLangChange = (e) => {
   i18n.changeLanguage(newLang);  // Change language in react-i18next
   localStorage.setItem('lang', newLang);  // Save the selected language in localStorage
 };
-const Home = () => {
-const { t } = useTranslation();
 const [modalIsOpen, setModalIsOpen] = useState(false);
 const navigate = useNavigate();
 // Function to open modal
