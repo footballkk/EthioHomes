@@ -7,8 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer'; // adjust the path if needed
 import { useTranslation } from 'react-i18next'; // Import at the top of your component
 function getTranslatedText(base, am, lang) {
-  if (lang === 'am') return am || base; // If the language is Amharic, show the Amharic translation
-  return base; // Default to English if no language-specific translation is available
+  if (lang === 'am' && typeof am === 'string' && am.trim()) {
+    return am;
+  }
+  return base || 'N/A';
 }
 const BuyerDashboard = () => {
 const { i18n } = useTranslation();
