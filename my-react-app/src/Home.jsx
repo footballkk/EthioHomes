@@ -15,6 +15,17 @@ const images = [
     "/images/home4.jfif",
     "/images/home5.jfif",
   ];
+  useEffect(() => {
+  const savedLang = localStorage.getItem('lang');  // Get saved language from localStorage
+  if (savedLang && savedLang !== i18n.language) {
+    i18n.changeLanguage(savedLang);  // Change language to the saved one
+  }
+}, []);
+const handleLangChange = (e) => {
+  const newLang = e.target.value;
+  i18n.changeLanguage(newLang);  // Change language in react-i18next
+  localStorage.setItem('lang', newLang);  // Save the selected language in localStorage
+};
 const Home = () => {
 const { t } = useTranslation();
 const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -64,17 +75,6 @@ setResults(res.data);
 console.error("Search failed", err);
 }
 }; 
-useEffect(() => {
-  const savedLang = localStorage.getItem('lang');  // Get saved language from localStorage
-  if (savedLang && savedLang !== i18n.language) {
-    i18n.changeLanguage(savedLang);  // Change language to the saved one
-  }
-}, []);
-const handleLangChange = (e) => {
-  const newLang = e.target.value;
-  i18n.changeLanguage(newLang);  // Change language in react-i18next
-  localStorage.setItem('lang', newLang);  // Save the selected language in localStorage
-};
 return(
 <div>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
