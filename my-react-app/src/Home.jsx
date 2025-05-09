@@ -16,13 +16,13 @@ const images = [
     "/images/home5.jfif",
   ];
 const Home = () => {
-const { t } = useTranslation();
+const { i18n } = useTranslation();
  useEffect(() => {
   const savedLang = localStorage.getItem('lang');  // Get saved language from localStorage
   if (savedLang && savedLang !== i18n.language) {
     i18n.changeLanguage(savedLang);  // Change language to the saved one
   }
-}, []);
+}, [i18n]);
 const handleLangChange = (e) => {
   const newLang = e.target.value;
   i18n.changeLanguage(newLang);  // Change language in react-i18next
