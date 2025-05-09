@@ -1,5 +1,5 @@
 // src/Home.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../home.css';
 import AuthSelectionModal from './AuthSelectionModal';
