@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../home.css';
 import AuthSelectionModal from './AuthSelectionModal';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { i18n } from 'react-i18next'; // Add this line to fix the language change issue
 import { useTranslation } from 'react-i18next';
 import Footer from './components/Footer'; // adjust the path if needed
 import newLogo from '../newLogo.png'; // adjust path based on your folder
