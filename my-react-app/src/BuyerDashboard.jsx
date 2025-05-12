@@ -17,6 +17,7 @@ function getTranslatedText(base, am, lang) {
 const BuyerDashboard = () => {
 const [selectedSellerId, setSelectedSellerId] = useState(null);
 const [currentUserId, setCurrentUserId] = useState(''); // Replace with actual user ID from auth
+const [showInbox, setShowInbox] = useState(false);
 const { i18n } = useTranslation();
 const currentLang = i18n.language; // 'en', 'am'
 const [properties, setProperties] = useState([]);
@@ -112,8 +113,19 @@ properties.map((property) => (
 </main>
 {/* ✅ 📥 Inbox Section Goes Here */}
 <div style={{ marginTop: '40px' }}>
-  <h2>Your Inbox</h2>
-  <Inbox userId={currentUserId} />
+  <button
+    className="btn btn-secondary"
+    onClick={() => setShowInbox(!showInbox)}
+  >
+    {showInbox ? 'Hide Inbox' : 'View Inbox'}
+  </button>
+
+  {showInbox && (
+    <div style={{ marginTop: '20px' }}>
+      <h2>Your Inbox</h2>
+      <Inbox userId={currentUserId} />
+    </div>
+  )}
 </div>
 <Footer />
 </div>
