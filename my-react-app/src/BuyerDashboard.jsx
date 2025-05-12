@@ -30,19 +30,28 @@ autoClose: 1500,
 });
 };
 useEffect(() => {
+  // Fetch properties from the backend
   const fetchProperties = async () => {
     try {
-      const response = await axios.get(
-        'https://homeeasebackend.onrender.com/properties');
+      const response = await axios.get('https://homeeasebackend.onrender.com/properties');
       setProperties(response.data);
     } catch (error) {
       console.error('Failed to fetch properties:', error);
     }
   };
+
   fetchProperties();
+
+  // Get logged in user from localStorage
   const loggedInUser = JSON.parse(localStorage.getItem('user'));
-  setCurrentUserId(loggedInUser?._id || 'buyer123');
+  if (loggedInUser && loggedInUser._id) {
+    setCurrentUserId(loggedInUser._id);
+  } else {
+    console.warn("No logged-in user found in localStorage.");
+    setCurrentUserId('buyer123'); // fallback (optional)
+  }
 }, []);
+
 return (
 <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
 <ToastContainer />

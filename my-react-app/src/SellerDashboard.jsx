@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../home.css';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -6,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer'; // adjust the path if needed
 
 function SellerDashboard() {
+const [currentUserId, setCurrentUserId] = useState('');
+const [showInbox, setShowInbox] = useState(false);
 const [paymentMade, setPaymentMade] = useState(localStorage.getItem('paymentMade') === 'true');
 const [loading, setLoading] = useState(false);
 const [formData, setFormData] = useState({
@@ -28,6 +31,8 @@ useEffect(() => {
     localStorage.setItem('paymentMade', 'true');
     toast.success('Payment confirmed. You can now post your home!');
   }
+  const loggedInSeller = JSON.parse(localStorage.getItem('user'));
+  setCurrentUserId(loggedInSeller?._id || seller_id || ''); // fallback
 }, []);
 const handleLogout = () => {
 localStorage.removeItem('seller_id');
@@ -115,6 +120,20 @@ return (
   </button>
 </div>
 <p>This is your dashboard where you can list and manage your properties.</p>
+<button
+  onClick={() => setShowInbox(!showInbox)}
+  className="btn btn-secondary"
+  style={{ margin: '10px 0' }}
+>
+  {showInbox ? 'Hide Inbox' : 'View Inbox'}
+</button>
+
+{showInbox && (
+  <div style={{ marginTop: '20px' }}>
+    <h3>📥 Your Inbox</h3>
+    <Inbox userId={currentUserId} />
+  </div>
+)}
 {!paymentMade && (
   <div style={{ backgroundColor: '#ffe0e0', padding: '10px', border: '1px solid red', marginBottom: '1rem' }}>
     <p><strong>Payment Required:</strong> Please pay <strong>100 ETB</strong> to list this property.</p>
