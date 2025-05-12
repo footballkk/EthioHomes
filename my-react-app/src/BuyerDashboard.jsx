@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../home.css';
+import MessageForm from './MessageForm'; // Adjust path if needed
+import Inbox from './Inbox';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -13,6 +15,8 @@ function getTranslatedText(base, am, lang) {
   return base || 'N/A';
 }
 const BuyerDashboard = () => {
+const [selectedSellerId, setSelectedSellerId] = useState(null);
+const [currentUserId, setCurrentUserId] = useState(''); // Replace with actual user ID from auth
 const { i18n } = useTranslation();
 const currentLang = i18n.language; // 'en', 'am'
 const [properties, setProperties] = useState([]);
@@ -35,6 +39,8 @@ useEffect(() => {
     }
   };
   fetchProperties();
+  const loggedInUser = JSON.parse(localStorage.getItem('user'));
+  setCurrentUserId(loggedInUser?._id || 'buyer123');
 }, []);
 return (
 <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -87,11 +93,28 @@ properties.map((property) => (
           )
         : "No description provided."}
     </p>
+    <button
+  className="btn btn-primary"
+  style={{ marginTop: '10px' }}
+  onClick={() => setSelectedSellerId(property.userId)}
+>
+  Message Seller
+</button>
+
+{/* 💬 Show MessageForm if this seller is selected */}
+{selectedSellerId === property.userId && (
+  <MessageForm senderId={currentUserId} receiverId={property.userId} />
+)}
   </div>
 ))
 )}
 </div>
 </main>
+{/* ✅ 📥 Inbox Section Goes Here */}
+<div style={{ marginTop: '40px' }}>
+  <h2>Your Inbox</h2>
+  <Inbox userId={currentUserId} />
+</div>
 <Footer />
 </div>
 );
