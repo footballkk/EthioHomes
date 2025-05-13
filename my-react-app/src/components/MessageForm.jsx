@@ -8,15 +8,23 @@ const MessageForm = ({ receiverId }) => {
   const handleSend = async (e) => {
     e.preventDefault();
 
-    // ✅ Get sender (buyer) info from localStorage
-    const senderId = localStorage.getItem('buyer_id');
-    const senderName = localStorage.getItem('buyer_name');
-    const senderEmail = localStorage.getItem('buyer_email');
+    // ✅ Get sender info from localStorage
+    const senderId = localStorage.getItem('buyer_id') || localStorage.getItem('seller_id');
+    const senderName = localStorage.getItem('buyer_name') || localStorage.getItem('seller_name');
+    const senderEmail = localStorage.getItem('buyer_email') || localStorage.getItem('seller_email');
+    const userRole = localStorage.getItem('role'); // Check if the user is a buyer or seller
 
-    // ✅ Check if buyer is logged in
-    if (!senderId || !senderName || !senderEmail) {
-      console.error('No logged-in user found in localStorage.');
-      alert('Please log in as a buyer to send a message.');
+    // ✅ Check if user is logged in and has the correct role
+    if (!senderId || !senderName || !senderEmail || !userRole) {
+      console.error('No logged-in user found or incorrect role.');
+      alert('Please log in to send a message.');
+      return;
+    }
+
+    // ✅ Make sure the role is either buyer or seller
+    if (userRole !== 'buyer' && userRole !== 'seller') {
+      console.error('Invalid role detected.');
+      alert('Invalid user role.');
       return;
     }
 
@@ -31,7 +39,7 @@ const MessageForm = ({ receiverId }) => {
       });
 
       setStatus('✅ Message sent!');
-      setContent('');
+      setContent(''); // Clear the content after sending
     } catch (error) {
       console.error('Message sending failed:', error);
       setStatus('❌ Failed to send message.');
