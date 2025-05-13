@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ ADDED
-import Footer from './components/Footer'; // adjust the path if needed
+import Footer from './Footer'; // adjust the path if needed
 // New code
 const AuthForm = () => {
 const navigate = useNavigate(); // ✅ ADDED

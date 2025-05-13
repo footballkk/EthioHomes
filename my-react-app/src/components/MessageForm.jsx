@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance'; // ✅ use JWT-authenticated Axios
 
 const MessageForm = ({ senderId, receiverId }) => {
   const [content, setContent] = useState('');
@@ -7,29 +7,33 @@ const MessageForm = ({ senderId, receiverId }) => {
 
   const handleSend = async (e) => {
     e.preventDefault();
+
     try {
-      await axios.post('http://localhost:5000/api/messages', {
+      await axios.post('/messages', {
         senderId,
         receiverId,
         content,
       });
-      setStatus('Message sent!');
+
+      setStatus('✅ Message sent!');
       setContent('');
     } catch (error) {
-      setStatus('Failed to send message.');
+      console.error('Message sending failed:', error);
+      setStatus('❌ Failed to send message.');
     }
   };
 
   return (
-    <form onSubmit={handleSend}>
+    <form onSubmit={handleSend} style={{ marginTop: '10px' }}>
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Write your message..."
         required
+        style={{ width: '100%', height: '80px', marginBottom: '8px' }}
       />
-      <button type="submit">Send</button>
-      <p>{status}</p>
+      <button type="submit" className="btn btn-primary">Send</button>
+      {status && <p style={{ marginTop: '8px', color: status.includes('Failed') ? 'red' : 'green' }}>{status}</p>}
     </form>
   );
 };

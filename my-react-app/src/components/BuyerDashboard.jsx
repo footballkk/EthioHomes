@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from './components/Footer'; // adjust the path if needed
+import Footer from './Footer'; // adjust the path if needed
 import { useTranslation } from 'react-i18next'; // Import at the top of your component
 function getTranslatedText(base, am, lang) {
   if (lang === 'am' && typeof am === 'string' && am.trim()) {

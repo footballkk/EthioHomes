@@ -5,7 +5,7 @@ import '../home.css';
 import AuthSelectionModal from './AuthSelectionModal';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useTranslation } from 'react-i18next';
-import Footer from './components/Footer'; // adjust the path if needed
+import Footer from './Footer'; // adjust the path if needed
 import newLogo from '../newLogo.png'; // adjust path based on your folder
 import axios from "axios";
 const images = [

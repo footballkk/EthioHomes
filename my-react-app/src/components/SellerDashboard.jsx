@@ -4,7 +4,7 @@ import '../home.css';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from './components/Footer'; // adjust the path if needed
+import Footer from './Footer'; // adjust the path if needed
 
 function SellerDashboard() {
 const [currentUserId, setCurrentUserId] = useState('');
