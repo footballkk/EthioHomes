@@ -1,12 +1,12 @@
 // src/Home.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../home.css';
+import '../../home.css';
 import AuthSelectionModal from './AuthSelectionModal';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useTranslation } from 'react-i18next';
 import Footer from './Footer'; // adjust the path if needed
-import newLogo from '../newLogo.png'; // adjust path based on your folder
+import newLogo from '../../newLogo.png'; // adjust path based on your folder
 import axios from "axios";
 const images = [
     "/images/home1.jfif",
