@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './Home.jsx';
-import AuthForm from './AuthForm.jsx';
-import BuyerDashboard from './BuyerDashboard.jsx';
-import SellerDashboard from './SellerDashboard.jsx';
+import Home from './components/Home.jsx';
+import AuthForm from './components/AuthForm.jsx';
+import BuyerDashboard from './components/BuyerDashboard.jsx';
+import SellerDashboard from './components/SellerDashboard.jsx';
 function App() {
   return (
     <Routes>
