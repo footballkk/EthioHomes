@@ -28,34 +28,29 @@ if (isLogin) {
     password: formData.password,
   });
 
-  const { role, token, user } = response.data;
+  const user = response.data.user;
+  const token = response.data.token;
 
   alert('Login successful!');
   console.log(user.id);
 
-  // ✅ Store role and token in localStorage
-  localStorage.setItem('role', role); // Store the role (buyer or seller)
-  localStorage.setItem('token', token); // Store the JWT token
+  // ✅ Detect if buyer or seller from pathname
+  const path = window.location.pathname;
+  const isBuyer = path.includes('buyer');
 
-  // Store user info based on role
-  if (role === 'buyer') {
-    localStorage.setItem('buyer_id', user.id || user._id);
-    localStorage.setItem('buyer_name', user.full_name || user.name);
-    localStorage.setItem('buyer_email', user.email);
-  } else {
-    localStorage.setItem('seller_id', user.id || user._id);
-    localStorage.setItem('seller_name', user.full_name || user.name);
-    localStorage.setItem('seller_email', user.email);
-  }
+  // ✅ Store token and user info based on role
+  localStorage.setItem('token', token);
+  localStorage.setItem(isBuyer ? 'buyer_id' : 'seller_id', user.id || user._id);
+  localStorage.setItem(isBuyer ? 'buyer_name' : 'seller_name', user.full_name || user.name);
+  localStorage.setItem(isBuyer ? 'buyer_email' : 'seller_email', user.email);
 
-  // ✅ Navigate to correct dashboard based on role
-  if (role === 'buyer') {
+  // ✅ Navigate to correct dashboard
+  if (isBuyer) {
     navigate('/buyer-dashboard');
   } else {
     navigate('/seller-dashboard');
   }
 }
-
  else {
       // Register
     const role = window.location.pathname.includes('seller') ? 'seller' : 'buyer';   
