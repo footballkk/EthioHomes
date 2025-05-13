@@ -21,7 +21,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   const apiUrl = 'https://homeeasebackend.onrender.com';
   try {
-    if (isLogin) {
+if (isLogin) {
   // Login
   const response = await axios.post(`${apiUrl}/login`, {
     email: formData.email,
@@ -29,22 +29,25 @@ const handleSubmit = async (e) => {
   });
 
   const user = response.data.user;
-  const token = response.data.token; // ✅ GET THE TOKEN
+  const token = response.data.token;
 
   alert('Login successful!');
   console.log(user.id);
 
-  // ✅ Store the token and user info
-  localStorage.setItem('token', token); // <-- CRUCIAL
-  localStorage.setItem('seller_id', user.id || user._id);
-  localStorage.setItem('seller_name', user.full_name || user.name);
-  localStorage.setItem('seller_email', user.email);
-
-  // ✅ Redirect based on path
+  // ✅ Detect if buyer or seller from pathname
   const path = window.location.pathname;
-  if (path.includes('buyer')) {
+  const isBuyer = path.includes('buyer');
+
+  // ✅ Store token and user info based on role
+  localStorage.setItem('token', token);
+  localStorage.setItem(isBuyer ? 'buyer_id' : 'seller_id', user.id || user._id);
+  localStorage.setItem(isBuyer ? 'buyer_name' : 'seller_name', user.full_name || user.name);
+  localStorage.setItem(isBuyer ? 'buyer_email' : 'seller_email', user.email);
+
+  // ✅ Navigate to correct dashboard
+  if (isBuyer) {
     navigate('/buyer-dashboard');
-  } else if (path.includes('seller')) {
+  } else {
     navigate('/seller-dashboard');
   }
 }
