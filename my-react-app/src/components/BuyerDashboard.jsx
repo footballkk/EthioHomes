@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../home.css';
+import '../../home.css';
 import MessageForm from './MessageForm'; // Adjust path if needed
 import Inbox from './Inbox';
 import axios from 'axios';
