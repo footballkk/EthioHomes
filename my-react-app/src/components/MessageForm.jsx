@@ -1,17 +1,32 @@
 import React, { useState } from 'react';
-import axios from '../utils/axiosInstance'; // ✅ use JWT-authenticated Axios
+import axios from '../utils/axiosInstance'; // ✅ JWT-authenticated Axios
 
-const MessageForm = ({ senderId, receiverId }) => {
+const MessageForm = ({ receiverId }) => {
   const [content, setContent] = useState('');
   const [status, setStatus] = useState('');
 
   const handleSend = async (e) => {
     e.preventDefault();
 
+    // ✅ Get sender (buyer) info from localStorage
+    const senderId = localStorage.getItem('buyer_id');
+    const senderName = localStorage.getItem('buyer_name');
+    const senderEmail = localStorage.getItem('buyer_email');
+
+    // ✅ Check if buyer is logged in
+    if (!senderId || !senderName || !senderEmail) {
+      console.error('No logged-in user found in localStorage.');
+      alert('Please log in as a buyer to send a message.');
+      return;
+    }
+
     try {
+      // ✅ Send message with complete info
       await axios.post('/messages', {
-        senderId,
-        receiverId,
+        sender_id: senderId,
+        sender_name: senderName,
+        sender_email: senderEmail,
+        receiver_id: receiverId,
         content,
       });
 
@@ -33,7 +48,11 @@ const MessageForm = ({ senderId, receiverId }) => {
         style={{ width: '100%', height: '80px', marginBottom: '8px' }}
       />
       <button type="submit" className="btn btn-primary">Send</button>
-      {status && <p style={{ marginTop: '8px', color: status.includes('Failed') ? 'red' : 'green' }}>{status}</p>}
+      {status && (
+        <p style={{ marginTop: '8px', color: status.includes('Failed') ? 'red' : 'green' }}>
+          {status}
+        </p>
+      )}
     </form>
   );
 };
