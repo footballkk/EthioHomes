@@ -8,7 +8,7 @@ const MessageForm = ({ receiverId, propertyId }) => {
   const handleSend = async (e) => {
     e.preventDefault();
 
-    const senderId = localStorage.getItem('buyer_id') || localStorage.getItem('seller_id');
+    // const senderId = localStorage.getItem('buyer_id') || localStorage.getItem('seller_id');
     const role = localStorage.getItem('role');
 
     if (!senderId || !role) {
