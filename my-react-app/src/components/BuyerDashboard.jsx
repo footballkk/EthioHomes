@@ -15,12 +15,12 @@ function getTranslatedText(base, am, lang) {
   return base || 'N/A';
 }
 const BuyerDashboard = () => {
+const [properties, setProperties] = useState([]);
 const [selectedSellerId, setSelectedSellerId] = useState(null);
 const [currentUserId, setCurrentUserId] = useState(''); // Replace with actual user ID from auth
 const [showInbox, setShowInbox] = useState(false);
 const { i18n } = useTranslation();
 const currentLang = i18n.language; // 'en', 'am'
-const [properties, setProperties] = useState([]);
 const navigate = useNavigate();
 const handleLogout = () => {
 localStorage.removeItem('user');
@@ -113,7 +113,8 @@ properties.map((property) => (
 
 {/* 💬 Show MessageForm if this seller is selected */}
 {selectedSellerId === property.userId && (
-  <MessageForm senderId={currentUserId} receiverId={property.userId} />
+  <MessageForm   receiverId={selectedSellerId}
+        propertyId={property._id} />
 )}
   </div>
 ))
