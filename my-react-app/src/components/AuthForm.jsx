@@ -30,22 +30,27 @@ if (isLogin) {
 
   const user = response.data.user;
   const token = response.data.token;
+  const role = response.data.role || user.role; // Make sure your backend returns this
+
+  // ✅ Validate role
+  if (!role || (role !== 'buyer' && role !== 'seller')) {
+    console.error('Invalid role detected.');
+    alert('Login failed due to an invalid role.');
+    return;
+  }
 
   alert('Login successful!');
-  console.log(user.id);
+  console.log(user._id);
 
-  // ✅ Detect if buyer or seller from pathname
-  const path = window.location.pathname;
-  const isBuyer = path.includes('buyer');
-
-  // ✅ Store token and user info based on role
+  // ✅ Store user info and token in localStorage using role
   localStorage.setItem('token', token);
-  localStorage.setItem(isBuyer ? 'buyer_id' : 'seller_id', user.id || user._id);
-  localStorage.setItem(isBuyer ? 'buyer_name' : 'seller_name', user.full_name || user.name);
-  localStorage.setItem(isBuyer ? 'buyer_email' : 'seller_email', user.email);
+  localStorage.setItem('role', role);
+  localStorage.setItem(`${role}_id`, user._id);
+  localStorage.setItem(`${role}_name`, user.full_name || user.name);
+  localStorage.setItem(`${role}_email`, user.email);
 
-  // ✅ Navigate to correct dashboard
-  if (isBuyer) {
+  // ✅ Navigate based on role
+  if (role === 'buyer') {
     navigate('/buyer-dashboard');
   } else {
     navigate('/seller-dashboard');
