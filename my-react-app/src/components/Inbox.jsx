@@ -1,67 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../utils/axiosInstance';
-import MessageForm from './MessageForm';
 
-const Inbox = ({ userId, otherUserId }) => {
-  const [messages, setMessages] = useState([]);
-  const [replyToId, setReplyToId] = useState(null);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+const Inbox = () => {
+  const [conversations, setConversations] = useState([]);
+  const [selectedThread, setSelectedThread] = useState([]);
+  const [activeConversation, setActiveConversation] = useState(null);
+
+  const userId = localStorage.getItem('buyer_id') || localStorage.getItem('seller_id');
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      if (!otherUserId) return;
-
-      setLoading(true);
+    const fetchConversations = async () => {
       try {
-        const res = await axios.get(
-          `/messages/conversation/${userId}/${otherUserId}?page=${page}&limit=20`
-        );
-        setMessages(prev => page === 1 ? res.data : [...prev, ...res.data]);
-        setHasMore(res.data.length === 20);
+        const res = await axios.get(`/messages/conversations/${userId}`);
+        setConversations(res.data);
       } catch (err) {
-        console.error('Failed to load messages', err);
-      } finally {
-        setLoading(false);
+        console.error('Error loading conversations:', err);
       }
     };
 
-    fetchMessages();
-  }, [userId, otherUserId, page]);
+    fetchConversations();
+  }, [userId]);
 
-  const loadMoreMessages = () => {
-    if (!loading && hasMore) {
-      setPage(prev => prev + 1);
+  const openThread = async (participantId, propertyId) => {
+    try {
+      const res = await axios.get(`/messages/thread/${userId}/${participantId}/${propertyId}`);
+      setSelectedThread(res.data);
+      setActiveConversation({ participantId, propertyId });
+    } catch (err) {
+      console.error('Error loading thread:', err);
     }
   };
 
   return (
-    <div>
-      <h2>Inbox</h2>
-      {messages.map((msg) => (
-        <div key={msg._id} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '1rem' }}>
-          <strong>{msg.senderId === userId ? 'You' : 'Other'}:</strong>
-          <p>{msg.content}</p>
-          <small>{new Date(msg.timestamp).toLocaleString()}</small>
-          
-          <button onClick={() => setReplyToId(replyToId === msg._id ? null : msg._id)}>
-            {replyToId === msg._id ? 'Cancel Reply' : 'Reply'}
-          </button>
-
-          {replyToId === msg._id && (
-            <div style={{ marginTop: '10px' }}>
-              <MessageForm receiverId={otherUserId} />
-            </div>
+    <div className="container mt-4">
+      <h3>Your Inbox</h3>
+      <div className="row">
+        <div className="col-md-4">
+          <ul className="list-group">
+            {conversations.map((conv, idx) => (
+              <li
+                key={idx}
+                className="list-group-item list-group-item-action"
+                onClick={() => openThread(conv.participant._id, conv.property._id)}
+              >
+                💬 {conv.participant.full_name} – 🏠 {conv.property.location}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="col-md-8">
+          {activeConversation && (
+            <>
+              <h5>Conversation with {conversations.find(c => c.participant._id === activeConversation.participantId)?.participant.full_name}</h5>
+              <div style={{ border: '1px solid #ccc', padding: '10px', maxHeight: '400px', overflowY: 'auto' }}>
+                {selectedThread.map((msg, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      textAlign: msg.senderId === userId ? 'right' : 'left',
+                      marginBottom: '10px'
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'inline-block',
+                        padding: '8px',
+                        borderRadius: '10px',
+                        backgroundColor: msg.senderId === userId ? '#DCF8C6' : '#F1F0F0'
+                      }}
+                    >
+                      {msg.content}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
-      ))}
-
-      {hasMore && (
-        <button onClick={loadMoreMessages} disabled={loading} style={{ marginTop: '20px' }}>
-          {loading ? 'Loading...' : 'Load More Messages'}
-        </button>
-      )}
+      </div>
     </div>
   );
 };

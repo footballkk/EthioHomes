@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../utils/axiosInstance';
 
-const MessageForm = ({ receiverId }) => {
+const MessageForm = ({ receiverId, propertyId }) => {
   const [content, setContent] = useState('');
   const [status, setStatus] = useState('');
 
@@ -9,15 +9,10 @@ const MessageForm = ({ receiverId }) => {
     e.preventDefault();
 
     const senderId = localStorage.getItem('buyer_id') || localStorage.getItem('seller_id');
-    const userRole = localStorage.getItem('role');
+    const role = localStorage.getItem('role');
 
-    if (!senderId || !userRole) {
-      alert('Please log in to send a message.');
-      return;
-    }
-
-    if (userRole !== 'buyer' && userRole !== 'seller') {
-      alert('Invalid user role.');
+    if (!senderId || !role) {
+      alert('Please log in.');
       return;
     }
 
@@ -25,36 +20,28 @@ const MessageForm = ({ receiverId }) => {
       await axios.post('/messages', {
         senderId,
         receiverId,
-        content
+        content,
+        propertyId
       });
-
       setStatus('✅ Message sent!');
       setContent('');
-    } catch (error) {
-      console.error('Message sending failed:', error);
-      if (error.response?.data?.message) {
-        setStatus(`❌ ${error.response.data.message}`);
-      } else {
-        setStatus('❌ Failed to send message.');
-      }
+    } catch (err) {
+      console.error('Message sending failed:', err);
+      setStatus('❌ Failed to send message.');
     }
   };
 
   return (
-    <form onSubmit={handleSend} style={{ marginTop: '10px' }}>
+    <form onSubmit={handleSend}>
       <textarea
         value={content}
-        onChange={(e) => setContent(e.target.value)}  // ✅ fixed typo here
-        placeholder="Write your message..."
+        onChange={(e) => setContent(e.target.value)}
         required
-        style={{ width: '100%', height: '80px', marginBottom: '8px' }}
+        placeholder="Write a message..."
+        style={{ width: '100%', height: '80px' }}
       />
-      <button type="submit" className="btn btn-primary">Send</button>
-      {status && (
-        <p style={{ marginTop: '8px', color: status.includes('❌') ? 'red' : 'green' }}>
-          {status}
-        </p>
-      )}
+      <button type="submit">Send</button>
+      {status && <p style={{ color: status.includes('❌') ? 'red' : 'green' }}>{status}</p>}
     </form>
   );
 };
