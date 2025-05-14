@@ -5,6 +5,8 @@ const Inbox = () => {
   const [conversations, setConversations] = useState([]);
   const [selectedThread, setSelectedThread] = useState([]);
   const [activeConversation, setActiveConversation] = useState(null);
+  const [newMessage, setNewMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const userId = localStorage.getItem('buyer_id') || localStorage.getItem('seller_id');
 
@@ -31,6 +33,28 @@ const Inbox = () => {
     }
   };
 
+  const handleSendReply = async (e) => {
+    e.preventDefault();
+    if (!newMessage.trim()) return;
+
+    try {
+      setLoading(true);
+      await axios.post('/messages', {
+        senderId: userId,
+        receiverId: activeConversation.participantId,
+        content: newMessage,
+        propertyId: activeConversation.propertyId,
+      });
+      setNewMessage('');
+      const res = await axios.get(`/messages/thread/${userId}/${activeConversation.participantId}/${activeConversation.propertyId}`);
+      setSelectedThread(res.data);
+    } catch (err) {
+      console.error('Error sending message:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="container mt-4">
       <h3>Your Inbox</h3>
@@ -51,8 +75,22 @@ const Inbox = () => {
         <div className="col-md-8">
           {activeConversation && (
             <>
-              <h5>Conversation with {conversations.find(c => c.participant._id === activeConversation.participantId)?.participant.full_name}</h5>
-              <div style={{ border: '1px solid #ccc', padding: '10px', maxHeight: '400px', overflowY: 'auto' }}>
+              <h5>
+                Conversation with{' '}
+                {
+                  conversations.find(c => c.participant._id === activeConversation.participantId)?.participant.full_name
+                }
+              </h5>
+              <div
+                style={{
+                  border: '1px solid #ccc',
+                  padding: '10px',
+                  maxHeight: '400px',
+                  overflowY: 'auto',
+                  marginBottom: '10px',
+                  borderRadius: '8px'
+                }}
+              >
                 {selectedThread.map((msg, idx) => (
                   <div
                     key={idx}
@@ -64,7 +102,7 @@ const Inbox = () => {
                     <div
                       style={{
                         display: 'inline-block',
-                        padding: '8px',
+                        padding: '8px 12px',
                         borderRadius: '10px',
                         backgroundColor: msg.senderId === userId ? '#DCF8C6' : '#F1F0F0'
                       }}
@@ -74,6 +112,25 @@ const Inbox = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Reply Box */}
+              <form onSubmit={handleSendReply}>
+                <textarea
+                  className="form-control"
+                  rows={3}
+                  placeholder="Type your reply..."
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="btn btn-primary mt-2"
+                  disabled={loading}
+                >
+                  {loading ? 'Sending...' : 'Send Reply'}
+                </button>
+              </form>
             </>
           )}
         </div>
