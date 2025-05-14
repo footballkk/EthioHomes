@@ -113,8 +113,10 @@ properties.map((property) => (
 
 {/* 💬 Show MessageForm if this seller is selected */}
 {selectedSellerId === property.userId && (
-  <MessageForm   receiverId={selectedSellerId}
-        propertyId={property._id} />
+  <MessageForm  
+  receiverId={selectedSellerId}
+  propertyId={property._id}
+   />
 )}
   </div>
 ))

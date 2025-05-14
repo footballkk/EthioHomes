@@ -38,6 +38,8 @@ if (isLogin) {
   }
 
   alert('Login successful!');
+  
+  localStorage.setItem('user', JSON.stringify(response.data.user));
   console.log(user._id);
 
   localStorage.setItem('token', token);
