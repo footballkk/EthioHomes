@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from '../utils/axiosInstance'; // ✅ JWT-authenticated Axios
+import axios from '../utils/axiosInstance';
 
 const MessageForm = ({ receiverId }) => {
   const [content, setContent] = useState('');
@@ -8,38 +8,28 @@ const MessageForm = ({ receiverId }) => {
   const handleSend = async (e) => {
     e.preventDefault();
 
-    // ✅ Get sender info from localStorage
     const senderId = localStorage.getItem('buyer_id') || localStorage.getItem('seller_id');
-    const senderName = localStorage.getItem('buyer_name') || localStorage.getItem('seller_name');
-    const senderEmail = localStorage.getItem('buyer_email') || localStorage.getItem('seller_email');
-    const userRole = localStorage.getItem('role'); // Check if the user is a buyer or seller
+    const userRole = localStorage.getItem('role');
 
-    // ✅ Check if user is logged in and has the correct role
-    if (!senderId || !senderName || !senderEmail || !userRole) {
-      console.error('No logged-in user found or incorrect role.');
+    if (!senderId || !userRole) {
       alert('Please log in to send a message.');
       return;
     }
 
-    // ✅ Make sure the role is either buyer or seller
     if (userRole !== 'buyer' && userRole !== 'seller') {
-      console.error('Invalid role detected.');
       alert('Invalid user role.');
       return;
     }
 
     try {
-      // ✅ Send message with complete info
       await axios.post('/messages', {
-        sender_id: senderId,
-        sender_name: senderName,
-        sender_email: senderEmail,
-        receiver_id: receiverId,
-        content,
+        senderId,
+        receiverId,
+        content
       });
 
       setStatus('✅ Message sent!');
-      setContent(''); // Clear the content after sending
+      setContent('');
     } catch (error) {
       console.error('Message sending failed:', error);
       setStatus('❌ Failed to send message.');
@@ -50,14 +40,14 @@ const MessageForm = ({ receiverId }) => {
     <form onSubmit={handleSend} style={{ marginTop: '10px' }}>
       <textarea
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) => setContent(e.targetValue)}
         placeholder="Write your message..."
         required
         style={{ width: '100%', height: '80px', marginBottom: '8px' }}
       />
       <button type="submit" className="btn btn-primary">Send</button>
       {status && (
-        <p style={{ marginTop: '8px', color: status.includes('Failed') ? 'red' : 'green' }}>
+        <p style={{ marginTop: '8px', color: status.includes('❌') ? 'red' : 'green' }}>
           {status}
         </p>
       )}
