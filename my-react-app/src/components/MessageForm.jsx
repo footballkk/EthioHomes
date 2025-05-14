@@ -32,7 +32,11 @@ const MessageForm = ({ receiverId }) => {
       setContent('');
     } catch (error) {
       console.error('Message sending failed:', error);
-      setStatus('❌ Failed to send message.');
+      if (error.response?.data?.message) {
+        setStatus(`❌ ${error.response.data.message}`);
+      } else {
+        setStatus('❌ Failed to send message.');
+      }
     }
   };
 
@@ -40,7 +44,7 @@ const MessageForm = ({ receiverId }) => {
     <form onSubmit={handleSend} style={{ marginTop: '10px' }}>
       <textarea
         value={content}
-        onChange={(e) => setContent(e.targetValue)}
+        onChange={(e) => setContent(e.target.value)}  // ✅ fixed typo here
         placeholder="Write your message..."
         required
         style={{ width: '100%', height: '80px', marginBottom: '8px' }}

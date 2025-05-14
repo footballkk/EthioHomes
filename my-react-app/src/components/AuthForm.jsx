@@ -22,7 +22,6 @@ const handleSubmit = async (e) => {
   const apiUrl = 'https://homeeasebackend.onrender.com';
   try {
 if (isLogin) {
-  // Login
   const response = await axios.post(`${apiUrl}/login`, {
     email: formData.email,
     password: formData.password,
@@ -30,9 +29,8 @@ if (isLogin) {
 
   const user = response.data.user;
   const token = response.data.token;
-  const role = response.data.role || user.role; // Make sure your backend returns this
+  const role = response.data.role || user.role;
 
-  // ✅ Validate role
   if (!role || (role !== 'buyer' && role !== 'seller')) {
     console.error('Invalid role detected.');
     alert('Login failed due to an invalid role.');
@@ -42,14 +40,24 @@ if (isLogin) {
   alert('Login successful!');
   console.log(user._id);
 
-  // ✅ Store user info and token in localStorage using role
   localStorage.setItem('token', token);
   localStorage.setItem('role', role);
   localStorage.setItem(`${role}_id`, user._id);
   localStorage.setItem(`${role}_name`, user.full_name || user.name);
   localStorage.setItem(`${role}_email`, user.email);
 
-  // ✅ Navigate based on role
+  // ✅ Add this to support messaging and global user info
+  localStorage.setItem(
+    "user",
+    JSON.stringify({
+      userId: user._id,
+      name: user.full_name || user.name,
+      email: user.email,
+      role: role,
+      token: token,
+    })
+  );
+
   if (role === 'buyer') {
     navigate('/buyer-dashboard');
   } else {
