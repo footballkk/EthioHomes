@@ -106,7 +106,7 @@ properties.map((property) => (
     <button
   className="btn btn-primary"
   style={{ marginTop: '10px' }}
-  onClick={() => setSelectedSellerId(property.seller_id)}
+  onClick={() => setSelectedSellerId(property.userId)}
 >
   Message Seller
 </button>
