@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../utils/axiosInstance'; // Import the axios instance
 import MessageForm from './MessageForm'; // Make sure it's imported
-
+console.log("Inbox loaded with userId:", userId);
 const Inbox = ({ userId, otherUserId }) => {
   const [messages, setMessages] = useState([]);
   const [replyToId, setReplyToId] = useState(null);

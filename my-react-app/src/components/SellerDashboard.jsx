@@ -128,7 +128,7 @@ return (
   {showInbox ? 'Hide Inbox' : 'View Inbox'}
 </button>
 
-{showInbox && (
+{showInbox && currentUserId && (
   <div style={{ marginTop: '20px' }}>
     <h3>📥 Your Inbox</h3>
     <Inbox userId={currentUserId} />
