@@ -12,7 +12,12 @@ const MessageForm = ({ senderId, receiverId, propertyId }) => {
       toast.warning('Please enter a message');
       return;
     }
-
+console.log("Sending message payload:", {
+    senderId,
+    receiverId,
+    propertyId,
+    text,
+  });
     try {
       const token = JSON.parse(localStorage.getItem('user'))?.token;
       const res = await axios.post('https://homeeasebackend.onrender.com/api/messages', {
