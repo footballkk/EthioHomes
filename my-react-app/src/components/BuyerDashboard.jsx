@@ -45,13 +45,14 @@ const BuyerDashboard = () => {
 
     fetchProperties();
 
-    const loggedInUser = JSON.parse(localStorage.getItem('user'));
-    if (loggedInUser && loggedInUser._id) {
-      setCurrentUserId(loggedInUser._id);
-    } else {
-      console.warn("No logged-in user found in localStorage.");
-      setCurrentUserId('buyer123'); // fallback
-    }
+const loggedInUser = JSON.parse(localStorage.getItem('user'));
+if (loggedInUser && loggedInUser.userId) {
+  setCurrentUserId(loggedInUser.userId);
+} else {
+  console.warn("No logged-in user found in localStorage.");
+  setCurrentUserId('buyer123'); // fallback
+}
+
   }, []);
 
   return (
