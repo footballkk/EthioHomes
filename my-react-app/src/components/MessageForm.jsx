@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-const MessageForm = ({ senderId, receiverId, propertyId }) => {
+
+const MessageForm = ({ receiverId, conversationId }) => {
   const [text, setText] = useState('');
-console.log("Props received in MessageForm:", { senderId, receiverId, propertyId });
+
+  console.log("Props received in MessageForm:", { conversationId, receiverId });
+
   const handleSend = async (e) => {
     e.preventDefault();
 
@@ -11,25 +14,27 @@ console.log("Props received in MessageForm:", { senderId, receiverId, propertyId
       toast.warning('Please enter a message');
       return;
     }
-console.log("Sending message payload:", {
-    senderId,
-    receiverId,
-    propertyId,
-    text,
-  });
+
+    const payload = {
+      conversationId,  // ✅ Required by backend
+      receiverId,
+      text,
+    };
+
+    console.log("Sending message payload:", payload);
+
     try {
       const token = JSON.parse(localStorage.getItem('user'))?.token;
-      const res = await axios.post('https://homeeasebackend.onrender.com/api/messages', {
-        text,
-        receiverId,
-        propertyId,
-        // Backend expects a conversationId, so we create a new or existing one automatically
-        conversationId: `${[senderId, receiverId].sort().join('_')}` // unique & consistent
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
+
+      const res = await axios.post(
+        'https://homeeasebackend.onrender.com/api/messages',
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
 
       toast.success('Message sent!');
       setText('');

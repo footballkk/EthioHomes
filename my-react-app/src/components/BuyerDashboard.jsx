@@ -110,7 +110,6 @@ if (loggedInUser && loggedInUser.userId) {
                 <MessageSellerButton 
                buyerId={currentUserId}
                sellerId={property.seller_id}
-               propertyId={property._id}
                 />
               </div>
             ))
