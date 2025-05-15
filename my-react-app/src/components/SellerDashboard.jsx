@@ -142,7 +142,7 @@ function SellerDashboard() {
           <h1>🏘️ Welcome, Seller!</h1>
           <button
             onClick={handleLogout}
-            style={{ padding: '2px 4px', fontSize: '14px' }}
+            style={{ padding: '2px 4px', fontSize: '14px', width: 'auto', minWidth: 'unset' }}
             className="btn btn-danger"
           >
             Logout
