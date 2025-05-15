@@ -109,7 +109,7 @@ if (loggedInUser && loggedInUser.userId) {
                 {/* ✅ Updated Message Seller Button */}
                 <MessageSellerButton 
                buyerId={currentUserId}
-               sellerId={property.sellerId}
+               sellerId={property.seller_id}
                propertyId={property._id}
                 />
               </div>
