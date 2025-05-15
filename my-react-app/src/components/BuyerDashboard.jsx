@@ -107,7 +107,11 @@ if (loggedInUser && loggedInUser.userId) {
                 </p>
 
                 {/* ✅ Updated Message Seller Button */}
-                <MessageSellerButton property={property} />
+                <MessageSellerButton 
+               buyerId={currentUserId}
+               sellerId={property.sellerId}
+               propertyId={property._id}
+                />
               </div>
             ))
           )}
