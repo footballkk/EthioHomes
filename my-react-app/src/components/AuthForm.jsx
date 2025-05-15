@@ -39,7 +39,7 @@ if (isLogin) {
 
   alert('Login successful!');
 
-  // ✅ Clean consistent storage
+  // ✅ Store unified user object for all role-based access and messaging
   const userPayload = {
     userId: user._id,
     name: user.full_name || user.name,
@@ -47,10 +47,16 @@ if (isLogin) {
     role,
     token,
   };
+  localStorage.setItem("user", JSON.stringify(userPayload)); // Used by messaging
+  localStorage.setItem("token", token);                      // Optional: useful for headers
+  localStorage.setItem("role", role);                        // Optional: used for navigation
 
-  localStorage.setItem("user", JSON.stringify(userPayload));
-  localStorage.setItem("token", token); // optional if you already store it in user
-  localStorage.setItem("role", role);
+  // ✅ Optional cleanup of any old individual keys (if needed)
+  localStorage.removeItem('buyer_id');
+  localStorage.removeItem('buyer_name');
+  localStorage.removeItem('buyer_email');
+  localStorage.removeItem('seller_name');
+  localStorage.removeItem('seller_email');
 
   if (role === 'buyer') {
     navigate('/buyer-dashboard');
