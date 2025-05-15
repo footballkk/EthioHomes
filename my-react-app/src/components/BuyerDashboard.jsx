@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import '../../home.css';
-import MessageForm from './MessageForm'; // May still be used elsewhere
 import Inbox from './Inbox';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
