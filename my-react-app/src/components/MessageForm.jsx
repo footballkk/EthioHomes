@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-// console.log("Props received in MessageForm:", { senderId, receiverId, propertyId });
 const MessageForm = ({ senderId, receiverId, propertyId }) => {
   const [text, setText] = useState('');
 
