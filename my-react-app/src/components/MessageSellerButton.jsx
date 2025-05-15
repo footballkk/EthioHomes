@@ -7,11 +7,6 @@ const MessageSellerButton = ({ sellerId, buyerId, propertyId }) => {
   const toggleMessageBox = () => {
     setShowMessageBox(!showMessageBox);
   };
-console.log("Passing to MessageForm:", {
-  buyerId,
-  sellerId,
-  propertyId
-});
   return (
     <div>
       <button className="btn btn-primary btn-sm" onClick={toggleMessageBox}>

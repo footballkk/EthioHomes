@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 const MessageForm = ({ senderId, receiverId, propertyId }) => {
   const [text, setText] = useState('');
-
+console.log("Props received in MessageForm:", { senderId, receiverId, propertyId });
   const handleSend = async (e) => {
     e.preventDefault();
 
