@@ -38,27 +38,19 @@ if (isLogin) {
   }
 
   alert('Login successful!');
-  
-  localStorage.setItem('user', JSON.stringify(response.data.user));
-  console.log(user._id);
 
-  localStorage.setItem('token', token);
-  localStorage.setItem('role', role);
-  localStorage.setItem(`${role}_id`, user._id);
-  localStorage.setItem(`${role}_name`, user.full_name || user.name);
-  localStorage.setItem(`${role}_email`, user.email);
+  // ✅ Clean consistent storage
+  const userPayload = {
+    userId: user._id,
+    name: user.full_name || user.name,
+    email: user.email,
+    role,
+    token,
+  };
 
-  // ✅ Add this to support messaging and global user info
-  localStorage.setItem(
-    "user",
-    JSON.stringify({
-      userId: user._id,
-      name: user.full_name || user.name,
-      email: user.email,
-      role: role,
-      token: token,
-    })
-  );
+  localStorage.setItem("user", JSON.stringify(userPayload));
+  localStorage.setItem("token", token); // optional if you already store it in user
+  localStorage.setItem("role", role);
 
   if (role === 'buyer') {
     navigate('/buyer-dashboard');
