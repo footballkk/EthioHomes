@@ -8,10 +8,8 @@ const MessageForm = ({ senderId, receiverId, propertyId }) => {
   const handleSend = async (e) => {
     e.preventDefault();
 
-    const role = localStorage.getItem('role');
-
-    if (!senderId || !role) {
-      alert('Please log in.');
+    if (!senderId || !receiverId) {
+      alert('Sender or receiver missing. Please log in.');
       return;
     }
 
