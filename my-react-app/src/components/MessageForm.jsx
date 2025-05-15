@@ -1,44 +1,51 @@
 import React, { useState } from 'react';
-import axios from '../utils/axiosInstance';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const MessageForm = ({ senderId, receiverId, propertyId }) => {
-  const [content, setContent] = useState('');
-  const [status, setStatus] = useState('');
+  const [text, setText] = useState('');
 
   const handleSend = async (e) => {
     e.preventDefault();
 
-    if (!senderId || !receiverId) {
-      alert('Sender or receiver missing. Please log in.');
+    if (!text.trim()) {
+      toast.warning('Please enter a message');
       return;
     }
 
     try {
-      await axios.post('/messages', {
-        senderId,
+      const token = JSON.parse(localStorage.getItem('user'))?.token;
+      const res = await axios.post('https://homeeasebackend.onrender.com/messages', {
+        text,
         receiverId,
-        content,
-        propertyId
+        propertyId,
+        // Backend expects a conversationId, so we create a new or existing one automatically
+        conversationId: `${[senderId, receiverId].sort().join('_')}` // unique & consistent
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
-      setStatus('✅ Message sent!');
-      setContent('');
+
+      toast.success('Message sent!');
+      setText('');
     } catch (err) {
-      console.error('Message sending failed:', err);
-      setStatus('❌ Failed to send message.');
+      console.error('Error sending message:', err);
+      toast.error('Failed to send message');
     }
   };
 
   return (
-    <form onSubmit={handleSend}>
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        required
-        placeholder="Write a message..."
-        style={{ width: '100%', height: '80px' }}
+    <form onSubmit={handleSend} style={{ display: 'flex', marginTop: '10px' }}>
+      <input
+        type="text"
+        placeholder="Type your message..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        className="form-control"
+        style={{ marginRight: '10px' }}
       />
-      <button type="submit">Send</button>
-      {status && <p style={{ color: status.includes('❌') ? 'red' : 'green' }}>{status}</p>}
+      <button type="submit" className="btn btn-success">Send</button>
     </form>
   );
 };
