@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import axios from '../utils/axiosInstance';
 
-const MessageForm = ({ receiverId, propertyId }) => {
+const MessageForm = ({ senderId, receiverId, propertyId }) => {
   const [content, setContent] = useState('');
   const [status, setStatus] = useState('');
 
   const handleSend = async (e) => {
     e.preventDefault();
 
-    // const senderId = localStorage.getItem('buyer_id') || localStorage.getItem('seller_id');
     const role = localStorage.getItem('role');
 
     if (!senderId || !role) {
