@@ -38,16 +38,18 @@ const Inbox = () => {
         <p>No conversations yet.</p>
       ) : (
         <ul style={{ listStyle: 'none', padding: 0 }}>
-     {conversations.map((conv) => {
-      const currentUserId = currentUser?._id || currentUser?.userId || '';
-     const otherUser = conv.participants.find((p) => p._id !== currentUserId);
-     return (
-     <li key={conv._id} style={{ marginBottom: '10px' }}>
-    <Link to={`/chat/${conv._id}`} style={{ textDecoration: 'none', color: '#007bff' }}>
-    Message with {otherUser}</Link>
-       </li>
+ {conversations.map((conv) => {
+  const currentUserId = currentUser?._id || currentUser?.userId || '';
+  const otherUser = conv.participants.find((p) => p._id !== currentUserId);
+  return (
+    <li key={conv._id} style={{ marginBottom: '10px' }}>
+      <Link to={`/chat/${conv._id}`} style={{ textDecoration: 'none', color: '#007bff' }}>
+        Message with {otherUser?.email || 'User'}
+      </Link>
+    </li>
   );
 })}
+
 
         </ul>
       )}
