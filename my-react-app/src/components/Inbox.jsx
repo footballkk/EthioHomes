@@ -11,15 +11,15 @@ const Inbox = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       toast.error('Please log in to view your inbox');
-      return;
+      return; // Important to return early!
     }
     setCurrentUser(user);
 
     const fetchConversations = async () => {
       try {
-axios.get('https://homeeasebackend.onrender.com/conversations', {
-  headers: { Authorization: `Bearer ${user.token}` }
-});
+        const res = await axios.get('https://homeeasebackend.onrender.com/conversations', {
+          headers: { Authorization: `Bearer ${user.token}` }
+        });
         setConversations(res.data);
       } catch (err) {
         toast.error('Failed to load conversations');
@@ -39,7 +39,9 @@ axios.get('https://homeeasebackend.onrender.com/conversations', {
       ) : (
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {conversations.map((conv) => {
-            const otherUser = conv.participants.find((p) => p !== currentUser._id);
+            // adjust user id key to your actual data
+            const currentUserId = currentUser?._id || currentUser?.userId || '';
+            const otherUser = conv.participants.find((p) => p !== currentUserId);
             return (
               <li key={conv._id} style={{ marginBottom: '10px' }}>
                 <Link to={`/chat/${otherUser}`} style={{ textDecoration: 'none', color: '#007bff' }}>

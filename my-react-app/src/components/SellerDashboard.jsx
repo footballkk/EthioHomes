@@ -205,7 +205,7 @@ return (
           <p>{p.description}</p>
           <button
             className="btn btn-primary btn-sm"
-            onClick={() => startConversationWith('sampleBuyerUserId')} // Replace with actual buyer ID if available
+            onClick={() => startConversationWith("665db74e78212e5f493c89f2")} // Replace with actual buyer ID if available
           >
             Message Buyer
           </button>
