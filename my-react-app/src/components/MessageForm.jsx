@@ -6,9 +6,9 @@ const MessageForm = ({ receiverId, propertyId }) => {
   const [text, setText] = useState('');
   const [conversationId, setConversationId] = useState(null);
 
-  const currentUser = JSON.parse(localStorage.getItem('user'));
-  const currentUserId = currentUser?.user?._id;
-  const token = currentUser?.token;
+const currentUser = JSON.parse(localStorage.getItem('user'));
+const currentUserId = currentUser?.userId;
+const token = currentUser?.token;
 
   // 🔧 Step 1: Get or create the conversation when the component mounts
   useEffect(() => {
