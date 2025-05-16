@@ -1,6 +1,6 @@
 // src/components/Footer.jsx
 import React from 'react';
-import '/home.css'; // or wherever your CSS styles (e.g. bg-dark, py-1) are defined
+import '../../home.css'; // or wherever your CSS styles (e.g. bg-dark, py-1) are defined
 
 const Footer = () => {
   return (
