@@ -28,6 +28,10 @@ image: null,
 });
 const navigate = useNavigate();
 
+const loggedInSeller = JSON.parse(localStorage.getItem("user"));
+const userId = loggedInSeller?.userId || '';
+setCurrentUserId(userId);
+
 useEffect(() => {
 const params = new URLSearchParams(window.location.search);
 const status = params.get('status');
@@ -36,11 +40,6 @@ if (status === 'success' || localStorage.getItem('paymentMade') === 'true') {
   localStorage.setItem('paymentMade', 'true');
   toast.success('Payment confirmed. You can now post your home!');
 }
-
-const loggedInSeller = JSON.parse(localStorage.getItem("user"));
-const userId = loggedInSeller?.userId || '';
-setCurrentUserId(userId);
-
 // Fetch seller's own properties
 if (userId) {
   axios.get(`https://homeeasebackend.onrender.com/properties?sellerId=${userId}`)
