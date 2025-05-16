@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ChatPage = () => {
-  const { id } = useParams(); // this is the receiver's user ID
+ const { id: conversationId } = useParams(); // NEW — id is conversation ID
   const [messages, setMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -21,10 +21,11 @@ const ChatPage = () => {
     // Fetch messages between current user and receiver
     const fetchMessages = async () => {
       try {
-       const res = await axios.get(`https://homeeasebackend.onrender.com/messages/${user._id}/${id}/direct`, {
+
+const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/${conversationId}`, {
   headers: { Authorization: `Bearer ${user.token}` }
 });
-        setMessages(res.data);
+    setMessages(res.data);
       } catch (err) {
         console.error('Failed to fetch messages', err);
         toast.error('Failed to load messages');
@@ -57,9 +58,9 @@ const ChatPage = () => {
           ))
         )}
       </div>
-
+      
       {currentUser && (
-        <MessageForm senderId={currentUser._id} receiverId={id} />
+        <MessageForm senderId={currentUser._id} conversationId={conversationId} />
       )}
     </div>
   );
