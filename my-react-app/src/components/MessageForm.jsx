@@ -1,11 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const MessageForm = ({ receiverId, conversationId }) => {
+const MessageForm = ({ receiverId, propertyId }) => {
   const [text, setText] = useState('');
+  const [conversationId, setConversationId] = useState(null);
 
-  console.log("Props received in MessageForm:", { conversationId, receiverId });
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const currentUserId = currentUser?.user?._id;
+  const token = currentUser?.token;
+
+  // 🔧 Step 1: Get or create the conversation when the component mounts
+  useEffect(() => {
+    const getOrCreateConversation = async () => {
+      try {
+        const res = await axios.post(
+          'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
+          {
+            user1Id: currentUserId,
+            user2Id: receiverId,
+            propertyId: propertyId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log('✅ Conversation created/found:', res.data);
+        setConversationId(res.data._id);
+      } catch (err) {
+        console.error('❌ Error getting/creating conversation:', err);
+        toast.error('Failed to create/find conversation');
+      }
+    };
+
+    if (currentUserId && receiverId && propertyId) {
+      getOrCreateConversation();
+    }
+  }, [currentUserId, receiverId, propertyId, token]);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -15,17 +49,20 @@ const MessageForm = ({ receiverId, conversationId }) => {
       return;
     }
 
+    if (!conversationId) {
+      toast.error('Conversation not ready yet');
+      return;
+    }
+
     const payload = {
-      conversationId,  // ✅ Required by backend
+      conversationId,
       receiverId,
       text,
     };
 
-    console.log("Sending message payload:", payload);
+    console.log("📤 Sending message payload:", payload);
 
     try {
-      const token = JSON.parse(localStorage.getItem('user'))?.token;
-
       const res = await axios.post(
         'https://homeeasebackend.onrender.com/api/messages',
         payload,
@@ -39,7 +76,7 @@ const MessageForm = ({ receiverId, conversationId }) => {
       toast.success('Message sent!');
       setText('');
     } catch (err) {
-      console.error('Error sending message:', err);
+      console.error('❌ Error sending message:', err);
       toast.error('Failed to send message');
     }
   };

@@ -107,10 +107,10 @@ if (loggedInUser && loggedInUser.userId) {
                 </p>
 
                 {/* ✅ Updated Message Seller Button */}
-                <MessageSellerButton 
-               buyerId={currentUserId}
-               sellerId={property.seller_id}
-                />
+            <MessageSellerButton 
+            sellerId={property.seller_id}
+            propertyId={property._id}
+            />
               </div>
             ))
           )}
