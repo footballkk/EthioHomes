@@ -17,7 +17,7 @@ const Inbox = () => {
 
     const fetchConversations = async () => {
       try {
-        const res = await axios.get('https://homeeasebackend.onrender.com/conversations', {
+        const res = await axios.get('https://homeeasebackend.onrender.com/api/conversations', {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         setConversations(res.data);
