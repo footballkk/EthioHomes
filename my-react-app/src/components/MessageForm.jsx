@@ -11,41 +11,36 @@ const currentUserId = currentUser?.userId;
 const token = currentUser?.token;
 
   // 🔧 Step 1: Get or create the conversation when the component mounts
-  useEffect(() => {
-    const getOrCreateConversation = async () => {
-      try {
+useEffect(() => {
+  const getOrCreateConversation = async () => {
+    try {
       console.log('📤 Sending to backend:', {
-        user1Id: currentUserId,
-        user2Id: receiverId,
+        sellerId: receiverId,
         propertyId: propertyId,
       });
-
-        const res = await axios.post(
-          'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
-          {
-            user1Id: currentUserId,
-            user2Id: receiverId,
-            propertyId: propertyId,
+      const res = await axios.post(
+        'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
+        {
+          sellerId: receiverId,      // ✅ Match backend expectations
+          propertyId: propertyId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        console.log('✅ Conversation created/found:', res.data);
-        setConversationId(res.data._id);
-      } catch (err) {
-        console.error('❌ Error getting/creating conversation:', err);
-        toast.error('Failed to create/find conversation');
-      }
-    };
-
-    if (currentUserId && receiverId && propertyId) {
-      getOrCreateConversation();
+        }
+      );
+      console.log('✅ Conversation created/found:', res.data);
+      setConversationId(res.data._id);
+    } catch (err) {
+      console.error('❌ Error getting/creating conversation:', err);
+      toast.error('Failed to create/find conversation');
     }
-  }, [currentUserId, receiverId, propertyId, token]);
+  };
+  if (currentUserId && receiverId && propertyId) {
+    getOrCreateConversation();
+  }
+}, [currentUserId, receiverId, propertyId, token]);
 
   const handleSend = async (e) => {
     e.preventDefault();
