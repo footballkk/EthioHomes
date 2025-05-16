@@ -12,6 +12,7 @@ function SellerDashboard() {
 const [currentUserId, setCurrentUserId] = useState('');
 const [showInbox, setShowInbox] = useState(false);
 const [selectedReceiverId, setSelectedReceiverId] = useState(null);
+const [conversationId, setConversationId] = useState(null);
 const [properties, setProperties] = useState([]);
 const [paymentMade, setPaymentMade] = useState(localStorage.getItem('paymentMade') === 'true');
 const [loading, setLoading] = useState(false);
@@ -52,34 +53,34 @@ if (userId) {
 }
 }, []);
 
-// useEffect(() => {
-// const fetchOrCreateConversation = async () => {
-//   if (!selectedReceiverId) {
-//     setConversationId(null);
-//     return;
-//   }
+useEffect(() => {
+const fetchOrCreateConversation = async () => {
+  if (!selectedReceiverId) {
+    setConversationId(null);
+    return;
+  }
 
-//   try {
-//     const token = localStorage.getItem('token'); // or wherever you store JWT
-//     const res = await axios.post(
-//       'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
-//       {
-//         user1Id: currentUserId,
-//         user2Id: selectedReceiverId,
-//         // optionally send propertyId if you want to link the conversation to a property
-//       },
-//       {
-//         headers: { Authorization: `Bearer ${token}` },
-//       }
-//     );
-//     setConversationId(res.data._id);
-//   } catch (error) {
-//     console.error('Error fetching or creating conversation:', error);
-//   }
-// };
+  try {
+    const token = localStorage.getItem('token'); // or wherever you store JWT
+    const res = await axios.post(
+      'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
+      {
+        user1Id: currentUserId,
+        user2Id: selectedReceiverId,
+        // optionally send propertyId if you want to link the conversation to a property
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    setConversationId(res.data._id);
+  } catch (error) {
+    console.error('Error fetching or creating conversation:', error);
+  }
+};
 
-// fetchOrCreateConversation();
-// }, [selectedReceiverId, currentUserId]);
+fetchOrCreateConversation();
+}, [selectedReceiverId, currentUserId]);
 
 const handleLogout = () => {
 localStorage.removeItem('seller_id');
@@ -111,7 +112,6 @@ if (!paymentMade) {
   alert("You must pay before submitting!");
   return;
 }
-
 const data = new FormData();
 data.append('type', formData.type);
 data.append('seller_id', seller_id);
@@ -241,14 +241,26 @@ return (
       <input type="file" name="image" accept="image/*" onChange={handleChange} required /><br /><br />
       <button type="submit">Post Home</button>
     </form>
-{/* Messaging Form */}
-        {selectedReceiverId && (
-          <div style={{ marginTop: '20px' }}>
-            <h3>Send Message</h3>
-            <MessageForm senderId={currentUserId} receiverId={selectedReceiverId} />
-            <button onClick={() => setSelectedReceiverId(null)} className="btn btn-link mt-2">Cancel</button>
-          </div>
-        )}
+
+{selectedReceiverId && conversationId && (
+<div style={{ marginTop: '20px' }}>
+<h3>Send Message</h3>
+<MessageForm
+  senderId={currentUserId}
+  receiverId={selectedReceiverId}
+  conversationId={conversationId}  // Pass the real conversation ID here
+/>
+<button
+  onClick={() => {
+    setSelectedReceiverId(null);
+    setConversationId(null);
+  }}
+  className="btn btn-link mt-2"
+>
+  Cancel
+</button>
+</div>
+)}
   </main>
   <Footer />
 </div>
