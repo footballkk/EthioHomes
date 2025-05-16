@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ChatPage = () => {
- const { id: conversationId } = useParams(); // NEW — id is conversation ID
+ const { id } = useParams();
   const [messages, setMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -58,7 +58,7 @@ const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/$
           ))
         )}
       </div>
-      
+
       {currentUser && (
         <MessageForm senderId={currentUser._id} conversationId={conversationId} />
       )}
