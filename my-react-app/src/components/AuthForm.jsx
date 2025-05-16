@@ -41,7 +41,6 @@ if (isLogin) {
 
   // ✅ Store unified user object for all role-based access and messaging
   
-localStorage.setItem(response.data.user._id);
   const userPayload = {
     userId: user._id,
     name: user.full_name || user.name,
