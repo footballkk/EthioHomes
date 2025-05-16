@@ -44,7 +44,7 @@ const Inbox = () => {
      return (
      <li key={conv._id} style={{ marginBottom: '10px' }}>
     <Link to={`/chat/${conv._id}`} style={{ textDecoration: 'none', color: '#007bff' }}>
-    Message with {otherUser}</Link>
+    Message with {otherUser.email}</Link>
        </li>
   );
 })}
