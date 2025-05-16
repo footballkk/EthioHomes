@@ -26,7 +26,6 @@ maxPrice: '',
 description: '',
 image: null,
 });
-const seller_id = localStorage.getItem('seller_id');
 const navigate = useNavigate();
 
 useEffect(() => {
@@ -38,8 +37,8 @@ if (status === 'success' || localStorage.getItem('paymentMade') === 'true') {
   toast.success('Payment confirmed. You can now post your home!');
 }
 
-const loggedInSeller = JSON.parse(localStorage.getItem('user'));
-const userId = loggedInSeller?._id || seller_id || '';
+const loggedInSeller = JSON.parse(localStorage.getItem("user"));
+const userId = loggedInSeller?.userId || '';
 setCurrentUserId(userId);
 
 // Fetch seller's own properties
@@ -114,7 +113,7 @@ if (!paymentMade) {
 }
 const data = new FormData();
 data.append('type', formData.type);
-data.append('seller_id', seller_id);
+data.append('seller_id', userId);
 data.append('location', formData.location);
 data.append('title', formData.title);
 data.append('size', formData.size);
