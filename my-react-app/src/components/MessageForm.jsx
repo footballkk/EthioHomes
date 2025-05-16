@@ -14,6 +14,12 @@ const token = currentUser?.token;
   useEffect(() => {
     const getOrCreateConversation = async () => {
       try {
+      console.log('📤 Sending to backend:', {
+        user1Id: currentUserId,
+        user2Id: receiverId,
+        propertyId: propertyId,
+      });
+
         const res = await axios.post(
           'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
           {
