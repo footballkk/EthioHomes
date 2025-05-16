@@ -22,7 +22,7 @@ const ChatPage = () => {
     const fetchMessages = async () => {
       try {
 
-const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/${conversationId}`, {
+const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/${user._id}`, {
   headers: { Authorization: `Bearer ${user.token}` }
 });
     setMessages(res.data);
@@ -60,7 +60,7 @@ const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/$
       </div>
 
       {currentUser && (
-        <MessageForm senderId={currentUser._id} conversationId={conversationId} />
+        <MessageForm senderId={currentUser._id} conversationId={id} />
       )}
     </div>
   );
