@@ -6,11 +6,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ChatPage = () => {
- const { id } = useParams();
-  const [messages, setMessages] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+const { id: receiverId } = useParams();
+ const [currentUser, setCurrentUser] = useState(null); 
+ const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
+   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       toast.error('Please log in to view this page');
@@ -18,14 +18,17 @@ const ChatPage = () => {
     }
     setCurrentUser(user);
 
-    // Fetch messages between current user and receiver
+    if (!receiverId) {
+      toast.error('Receiver ID missing from URL');
+      return;
+    }
+
     const fetchMessages = async () => {
       try {
-
-const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/${user._id}`, {
-  headers: { Authorization: `Bearer ${user.token}` }
-});
-    setMessages(res.data);
+        const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/${user._id}/${receiverId}/direct`, {
+          headers: { Authorization: `Bearer ${user.token}` }
+        });
+        setMessages(res.data);
       } catch (err) {
         console.error('Failed to fetch messages', err);
         toast.error('Failed to load messages');
@@ -33,7 +36,7 @@ const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/$
     };
 
     fetchMessages();
-  }, [id]);
+  }, [receiverId]);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -60,7 +63,7 @@ const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/$
       </div>
 
       {currentUser && (
-        <MessageForm senderId={currentUser._id} conversationId={id} />
+        <MessageForm senderId={currentUser._id} receiverId={receiverId} />
       )}
     </div>
   );

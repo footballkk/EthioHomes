@@ -58,6 +58,7 @@ useEffect(() => {
     const payload = {
       conversationId,
       receiverId,
+      senderId: currentUserId, // ✅ Add this
       text,
     };
 
