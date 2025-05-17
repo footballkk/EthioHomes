@@ -449,6 +449,7 @@ h2 {
   background-color: #4caf50; /* green */
   color: white;
   align-self: flex-end;
+  font-weight: bold;
   margin-left: auto;
   text-align: right;
 }
