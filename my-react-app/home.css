@@ -437,22 +437,21 @@ h2 {
 
 /* Message bubbles */
 .message-bubble {
-  margin-bottom: 10px;
-  max-width: 70%;
-  padding: 8px 12px;
-  border-radius: 16px;
-  display: inline-block;
+  max-width: 60%;
+  padding: 10px 15px;
+  margin: 8px;
+  border-radius: 15px;
+  font-size: 14px;
   word-wrap: break-word;
 }
 
-.message-bubble.sent {
+.sent {
   background-color: #4caf50; /* green */
   color: white;
   align-self: flex-end;
   margin-left: auto;
 }
-
-.message-bubble.received {
+.received {
   background-color: #e0e0e0; /* light gray */
   color: black;
   align-self: flex-start;
