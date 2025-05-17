@@ -189,7 +189,6 @@ return (
 
     {showInbox && (
       <div style={{ marginTop: '20px' }}>
-        <h3>📥 Your Inbox</h3>
         <Inbox userId={currentUserId} />
       </div>
     )}

@@ -128,7 +128,6 @@ if (loggedInUser && loggedInUser.userId) {
 
         {showInbox && (
           <div style={{ marginTop: '20px' }}>
-            <h2>Your Inbox</h2>
             <Inbox userId={currentUserId} />
           </div>
         )}
