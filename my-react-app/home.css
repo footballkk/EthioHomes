@@ -459,3 +459,40 @@ h2 {
   float: left;
 }
 
+/* inboxContainer.css */
+.inbox-container {
+  background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.inbox-header {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.inbox-list {
+  list-style: none;
+  padding: 0;
+}
+
+.inbox-list li {
+  margin-bottom: 14px;
+  font-size: 1.05rem;
+}
+
+.inbox-link {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.inbox-link:hover {
+  color: #0056b3;
+}

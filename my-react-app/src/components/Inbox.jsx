@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../home.css';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -31,29 +32,27 @@ const Inbox = () => {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <ToastContainer />
-      <h2>📥 Inbox</h2>
-      {conversations.length === 0 ? (
-        <p>No conversations yet.</p>
-      ) : (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
- {conversations.map((conv) => {
-  const currentUserId = currentUser?._id || currentUser?.userId || '';
-  const otherUser = conv.participants.find((p) => p._id !== currentUserId);
-  return (
-    <li key={conv._id} style={{ marginBottom: '10px' }}>
-      <Link to={`/chat/${conv._id}`} style={{ textDecoration: 'none', color: '#007bff' }}>
-        Message with {otherUser?.email || 'User'}
-      </Link>
-    </li>
-  );
-})}
-
-
-        </ul>
-      )}
-    </div>
+ <div className="inbox-container">
+  <ToastContainer />
+  <h2 className="inbox-header">📥 Inbox</h2>
+  {conversations.length === 0 ? (
+    <p>No conversations yet.</p>
+  ) : (
+    <ul className="inbox-list">
+      {conversations.map((conv) => {
+        const currentUserId = currentUser?._id || currentUser?.userId || '';
+        const otherUser = conv.participants.find((p) => p._id !== currentUserId);
+        return (
+          <li key={conv._id}>
+            <Link to={`/chat/${conv._id}`} className="inbox-link">
+              Message with {otherUser?.email || 'User'}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  )}
+</div>
   );
 };
 
