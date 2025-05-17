@@ -21,8 +21,8 @@ useEffect(() => {
       const res = await axios.post(
         'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
         {
-          sellerId: receiverId,      // ✅ Match backend expectations
-          propertyId: propertyId,
+          sellerId: receiverId,
+          propertyId: propertyId, // it's fine if this is undefined/null
         },
         {
           headers: {
@@ -38,10 +38,13 @@ useEffect(() => {
       toast.error('Failed to create/find conversation');
     }
   };
-  if (currentUserId && receiverId && propertyId) {
+
+  // ✅ Modified condition to allow general (inbox) conversations too
+  if (currentUserId && receiverId) {
     getOrCreateConversation();
   }
 }, [currentUserId, receiverId, propertyId, token]);
+
 
   const handleSend = async (e) => {
     e.preventDefault();
