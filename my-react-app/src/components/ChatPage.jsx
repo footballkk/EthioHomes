@@ -11,33 +11,53 @@ const { id: receiverId } = useParams();
  const [currentUser, setCurrentUser] = useState(null); 
  const [messages, setMessages] = useState([]);
 
-   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
-      toast.error('Please log in to view this page');
-      return;
+useEffect(() => {
+  const userData = localStorage.getItem('user');
+
+  if (!userData) {
+    toast.error('Please log in to view this page');
+    return;
+  }
+
+  let user;
+  try {
+    user = JSON.parse(userData);
+  } catch (e) {
+    toast.error('Corrupted login data. Please log in again.');
+    return;
+  }
+
+  // Ensure user has the required fields
+  if (!user._id || !user.token) {
+    toast.error('Invalid user data. Please log in again.');
+    return;
+  }
+
+  setCurrentUser(user);
+
+  if (!receiverId) {
+    toast.error('Receiver ID missing from URL');
+    return;
+  }
+
+  const fetchMessages = async () => {
+    try {
+      const res = await axios.get(
+        `https://homeeasebackend.onrender.com/api/messages/${user._id}/${receiverId}/direct`,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
+      setMessages(res.data);
+    } catch (err) {
+      console.error('Failed to fetch messages', err);
+      toast.error('Failed to load messages');
     }
-    setCurrentUser(user);
+  };
 
-    if (!receiverId) {
-      toast.error('Receiver ID missing from URL');
-      return;
-    }
+  fetchMessages();
+}, [receiverId]);
 
-    const fetchMessages = async () => {
-      try {
-        const res = await axios.get(`https://homeeasebackend.onrender.com/api/messages/${user._id}/${receiverId}/direct`, {
-          headers: { Authorization: `Bearer ${user.token}` }
-        });
-        setMessages(res.data);
-      } catch (err) {
-        console.error('Failed to fetch messages', err);
-        toast.error('Failed to load messages');
-      }
-    };
-
-    fetchMessages();
-  }, [receiverId]);
 
   return (
 <div className="chat-container">
