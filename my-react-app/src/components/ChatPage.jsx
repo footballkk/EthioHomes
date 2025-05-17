@@ -48,6 +48,7 @@ useEffect(() => {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       );
+      console.log('Fetched messages:', res.data);
       setMessages(res.data);
     } catch (err) {
       console.error('Failed to fetch messages', err);
