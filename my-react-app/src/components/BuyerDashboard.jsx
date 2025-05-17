@@ -118,20 +118,20 @@ if (loggedInUser && loggedInUser.userId) {
       </main>
 
       {/* 📥 Inbox Section */}
-      <div style={{ marginTop: '40px' }}>
-        <button
-          className="btn btn-secondary"
-          onClick={() => setShowInbox(!showInbox)}
-        >
-          {showInbox ? 'Hide Inbox' : 'View Inbox'}
-        </button>
+<div className="inbox-toggle-container">
+  <button
+    className="inbox-toggle-btn"
+    onClick={() => setShowInbox(!showInbox)}
+  >
+    {showInbox ? 'Hide Inbox' : 'View Inbox'}
+  </button>
 
-        {showInbox && (
-          <div style={{ marginTop: '20px' }}>
-            <Inbox userId={currentUserId} />
-          </div>
-        )}
-      </div>
+  {showInbox && (
+    <div className="inbox-inner">
+      <Inbox userId={currentUserId} />
+    </div>
+  )}
+</div>
       <Footer />
     </div>
   );

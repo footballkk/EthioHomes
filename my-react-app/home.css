@@ -496,3 +496,41 @@ h2 {
 .inbox-link:hover {
   color: #0056b3;
 }
+
+/* inboxToggle.css */
+.inbox-toggle-container {
+  margin-top: 40px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.inbox-toggle-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #6c757d; /* Bootstrap secondary */
+  color: #fff;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.inbox-toggle-btn:hover {
+  background-color: #5a6268;
+}
+
+.inbox-inner {
+  margin-top: 20px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .inbox-toggle-btn {
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .inbox-inner {
+    margin-top: 16px;
+  }
+}
