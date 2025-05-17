@@ -446,17 +446,17 @@ h2 {
 }
 
 .message-bubble.sent {
-  background: #dcf8c6;
-  text-align: right;
+  background-color: #4caf50; /* green */
+  color: white;
   align-self: flex-end;
-  float: right;
+  margin-left: auto;
 }
 
 .message-bubble.received {
-  background: #eee;
-  text-align: left;
+  background-color: #e0e0e0; /* light gray */
+  color: black;
   align-self: flex-start;
-  float: left;
+  margin-right: auto;
 }
 
 /* inboxContainer.css */
