@@ -437,28 +437,27 @@ h2 {
 
 /* Message bubbles */
 .message-bubble {
-  padding: 10px 15px;
-  border-radius: 15px;
-  font-size: 1rem;
+  margin-bottom: 10px;
   max-width: 70%;
-  word-wrap: break-word;
+  padding: 8px 12px;
+  border-radius: 16px;
   display: inline-block;
+  word-wrap: break-word;
 }
 
-.sent {
-  background-color: #4caf50; /* green */
-  color: white;
+.message-bubble.sent {
+  background: #dcf8c6;
+  text-align: right;
   align-self: flex-end;
   font-weight: bold;
-  margin-left: auto;
-  text-align: right;
+  float: right;
 }
-.received {
-  background-color: #f0f0f0; /* light gray */
-  color: black;
-  align-self: flex-start;
-  margin-right: auto;
+
+.message-bubble.received {
+  background: #eee;
   text-align: left;
+  align-self: flex-start;
+  float: left;
 }
 
 /* inboxContainer.css */
