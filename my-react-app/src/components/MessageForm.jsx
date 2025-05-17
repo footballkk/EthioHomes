@@ -14,22 +14,27 @@ const token = currentUser?.token;
 useEffect(() => {
   const getOrCreateConversation = async () => {
     try {
-      console.log('📤 Sending to backend:', {
+      // ✅ Build the payload dynamically
+      const payload = {
         sellerId: receiverId,
-        propertyId: propertyId,
-      });
+      };
+
+      if (propertyId) {
+        payload.propertyId = propertyId;
+      }
+
+      console.log('📤 Sending to backend:', payload);
+
       const res = await axios.post(
         'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
-        {
-          sellerId: receiverId,
-          propertyId: propertyId, // it's fine if this is undefined/null
-        },
+        payload,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+
       console.log('✅ Conversation created/found:', res.data);
       setConversationId(res.data._id);
       console.log('Conversation ID:', res.data._id);
@@ -39,11 +44,12 @@ useEffect(() => {
     }
   };
 
-  // ✅ Modified condition to allow general (inbox) conversations too
+  // ✅ Trigger only when required fields are available
   if (currentUserId && receiverId) {
     getOrCreateConversation();
   }
 }, [currentUserId, receiverId, propertyId, token]);
+
 
 
   const handleSend = async (e) => {
