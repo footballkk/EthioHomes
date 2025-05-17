@@ -28,7 +28,7 @@ useEffect(() => {
   }
 
   // Ensure user has the required fields
-  if (!user._id || !user.token) {
+  if (!user.userId || !user.token) {
     toast.error('Invalid user data. Please log in again.');
     return;
   }
@@ -43,7 +43,7 @@ useEffect(() => {
   const fetchMessages = async () => {
     try {
       const res = await axios.get(
-        `https://homeeasebackend.onrender.com/api/messages/${user._id}/${receiverId}/direct`,
+        `https://homeeasebackend.onrender.com/api/messages/${user.userId}/${receiverId}/direct`,
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }
@@ -80,7 +80,7 @@ useEffect(() => {
   </div>
 
   {currentUser && (
-    <MessageForm senderId={currentUser._id} receiverId={receiverId} />
+    <MessageForm senderId={currentUser.userId} receiverId={receiverId} />
   )}
 </div>
 

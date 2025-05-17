@@ -42,7 +42,7 @@ if (isLogin) {
   // ✅ Store unified user object for all role-based access and messaging
   
   const userPayload = {
-    _id: user._id,
+    userId: user._id,
     name: user.full_name || user.name,
     email: user.email,
     role,
