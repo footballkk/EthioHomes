@@ -32,6 +32,7 @@ useEffect(() => {
       );
       console.log('✅ Conversation created/found:', res.data);
       setConversationId(res.data._id);
+      console.log('Conversation ID:', res.data._id);
     } catch (err) {
       console.error('❌ Error getting/creating conversation:', err);
       toast.error('Failed to create/find conversation');
