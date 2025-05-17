@@ -445,13 +445,13 @@ h2 {
   word-wrap: break-word;
 }
 
-.sent {
+.message-bubble.sent {
   background-color: #4caf50; /* green */
   color: white;
   align-self: flex-end;
   margin-left: auto;
 }
-.received {
+.message-bubble.received {
   background-color: #e0e0e0; /* light gray */
   color: black;
   align-self: flex-start;
