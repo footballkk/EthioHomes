@@ -121,7 +121,14 @@ if (loggedInUser && loggedInUser.userId) {
 <div className="inbox-toggle-container">
   <button
     className="inbox-toggle-btn"
-    onClick={() => setShowInbox(!showInbox)}
+    onClick={() => {
+      if (showInbox) {
+        // If currently showing inbox, refresh the page when hiding it
+        window.location.reload();
+      } else {
+        setShowInbox(true);
+      }
+    }}
   >
     {showInbox ? 'Hide Inbox' : 'View Inbox'}
   </button>
