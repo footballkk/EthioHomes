@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import MessageForm from './MessageForm'; // Reuse your form
+import '../../home.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -39,33 +40,30 @@ const { id: receiverId } = useParams();
   }, [receiverId]);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <ToastContainer />
-      <h2>💬 Chat with Seller</h2>
-      <div style={{ marginBottom: '20px', maxHeight: '300px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
-        {messages.length === 0 ? (
-          <p>No messages yet.</p>
-        ) : (
-          messages.map((msg, index) => (
-            <div key={index} style={{ marginBottom: '10px', textAlign: msg.senderId === currentUser?._id ? 'right' : 'left' }}>
-              <span style={{
-                display: 'inline-block',
-                padding: '8px 12px',
-                borderRadius: '16px',
-                background: msg.senderId === currentUser?._id ? '#DCF8C6' : '#EEE',
-                maxWidth: '70%',
-              }}>
-                {msg.text}
-              </span>
-            </div>
-          ))
-        )}
-      </div>
+<div className="chat-container">
+  <ToastContainer />
+  <h2>💬 Chat with {currentUser?.role === 'seller' ? 'Buyer' : 'Seller'}</h2>
 
-      {currentUser && (
-        <MessageForm senderId={currentUser._id} receiverId={receiverId} />
-      )}
-    </div>
+  <div className="chat-box">
+    {messages.length === 0 ? (
+      <p>No messages yet.</p>
+    ) : (
+      messages.map((msg, index) => (
+        <div
+          key={index}
+          className={`message-bubble ${msg.senderId === currentUser?._id ? 'sent' : 'received'}`}
+        >
+          <span>{msg.text}</span>
+        </div>
+      ))
+    )}
+  </div>
+
+  {currentUser && (
+    <MessageForm senderId={currentUser._id} receiverId={receiverId} />
+  )}
+</div>
+
   );
 };
 
