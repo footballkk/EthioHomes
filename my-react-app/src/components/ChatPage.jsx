@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import MessageForm from './MessageForm'; // Reuse your form
 import '../../home.css';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,7 +11,7 @@ const ChatPage = () => {
 const { id: receiverId } = useParams();
  const [currentUser, setCurrentUser] = useState(null); 
  const [messages, setMessages] = useState([]);
-
+const navigate = useNavigate();
 useEffect(() => {
   const userData = localStorage.getItem('user');
 
@@ -63,8 +64,10 @@ useEffect(() => {
   return (
 <div className="chat-container">
   <ToastContainer />
-  <h2>💬 Chat with {currentUser?.role === 'seller' ? 'Buyer' : 'Seller'}</h2>
-
+   <div className="chat-header">
+    <button className="back-button" onClick={() => navigate(-1)}>←</button>
+    <h2>💬 Chat with {currentUser?.role === 'seller' ? 'Buyer' : 'Seller'}</h2>
+  </div>
   <div className="chat-box">
     {messages.length === 0 ? (
       <p>No messages yet.</p>

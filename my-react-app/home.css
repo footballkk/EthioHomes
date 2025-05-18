@@ -535,3 +535,23 @@ h2 {
     margin-top: 16px;
   }
 }
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #4caf50;
+  transition: color 0.2s ease;
+}
+
+.back-button:hover {
+  color: #388e3c;
+}
