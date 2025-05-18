@@ -557,6 +557,6 @@ h2 {
 
 .back-button:hover {
   color: white;
-  padding: 10px;
+  padding-right: 10px;
   border-radius: 30%;
 }
