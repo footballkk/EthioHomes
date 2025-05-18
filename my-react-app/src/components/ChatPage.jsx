@@ -81,11 +81,12 @@ useEffect(() => {
   }, [currentUser, receiverId]);
 
   // 4️⃣ Mark messages as seen when conversationId is available
-  useEffect(() => {
-    if (!conversationId || !currentUser) return;
+useEffect(() => {
+  if (!conversationId || !currentUser) return;
 
-    axios
-      .put(
+  const markAsSeenAndRefresh = async () => {
+    try {
+      await axios.put(
         `https://homeeasebackend.onrender.com/api/messages/markAsSeen/${conversationId}`,
         {},
         {
@@ -93,9 +94,24 @@ useEffect(() => {
             Authorization: `Bearer ${currentUser.token}`,
           },
         }
-      )
-      .catch((err) => console.error('Failed to mark messages as seen', err));
-  }, [conversationId, currentUser]);
+      );
+
+      // ✅ Re-fetch messages to reflect new seen statuses
+      const res = await axios.get(
+        `https://homeeasebackend.onrender.com/api/messages/${currentUser.userId}/${receiverId}/direct`,
+        {
+          headers: { Authorization: `Bearer ${currentUser.token}` },
+        }
+      );
+      setMessages(res.data);
+    } catch (err) {
+      console.error('Failed to mark messages as seen or fetch updated messages', err);
+    }
+  };
+
+  markAsSeenAndRefresh();
+}, [conversationId, currentUser, receiverId]);
+
 
   return (
 <div className="chat-container">
