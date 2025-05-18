@@ -11,68 +11,91 @@ const ChatPage = () => {
 const { id: receiverId } = useParams();
  const [currentUser, setCurrentUser] = useState(null); 
  const [messages, setMessages] = useState([]);
+ const [conversationId, setConversationId] = useState(null);
 const navigate = useNavigate();
 useEffect(() => {
-  const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem('user');
 
-  if (!userData) {
-    toast.error('Please log in to view this page');
-    return;
-  }
-
-  let user;
-  try {
-    user = JSON.parse(userData);
-  } catch (e) {
-    toast.error('Corrupted login data. Please log in again.');
-    return;
-  }
-
-  // Ensure user has the required fields
-  if (!user.userId || !user.token) {
-    toast.error('Invalid user data. Please log in again.');
-    return;
-  }
-
-  setCurrentUser(user);
-
-  if (!receiverId) {
-    toast.error('Receiver ID missing from URL');
-    return;
-  }
-
-  const fetchMessages = async () => {
-    try {
-      const res = await axios.get(
-        `https://homeeasebackend.onrender.com/api/messages/${user.userId}/${receiverId}/direct`,
-        {
-          headers: { Authorization: `Bearer ${user.token}` },
-        }
-      );
-      console.log('Fetched messages:', res.data);
-      setMessages(res.data);
-    } catch (err) {
-      console.error('Failed to fetch messages', err);
-      toast.error('Failed to load messages');
+    if (!userData) {
+      toast.error('Please log in to view this page');
+      return;
     }
-  };
 
-  fetchMessages();
-}, [receiverId]);
+    let user;
+    try {
+      user = JSON.parse(userData);
+    } catch (e) {
+      toast.error('Corrupted login data. Please log in again.');
+      return;
+    }
 
-useEffect(() => {
-  if (conversationId) {
-    axios.put(
-      `https://homeeasebackend.onrender.com/api/messages/markAsSeen/${conversationId}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    if (!user.userId || !user.token) {
+      toast.error('Invalid user data. Please log in again.');
+      return;
+    }
+
+    setCurrentUser(user);
+  }, []);
+
+  // 2️⃣ Fetch messages once currentUser and receiverId are set
+  useEffect(() => {
+    if (!currentUser || !receiverId) return;
+
+    const fetchMessages = async () => {
+      try {
+        const res = await axios.get(
+          `https://homeeasebackend.onrender.com/api/messages/${currentUser.userId}/${receiverId}/direct`,
+          {
+            headers: { Authorization: `Bearer ${currentUser.token}` },
+          }
+        );
+        setMessages(res.data);
+      } catch (err) {
+        console.error('Failed to fetch messages', err);
+        toast.error('Failed to load messages');
       }
-    ).catch(err => console.error('Failed to mark messages as seen', err));
-  }
-}, [conversationId]);
+    };
+
+    fetchMessages();
+  }, [currentUser, receiverId]);
+
+  // 3️⃣ Fetch conversationId based on users
+  useEffect(() => {
+    if (!currentUser || !receiverId) return;
+
+    const fetchConversationId = async () => {
+      try {
+        const res = await axios.get(
+          `https://homeeasebackend.onrender.com/api/conversations/${currentUser.userId}/${receiverId}`,
+          {
+            headers: { Authorization: `Bearer ${currentUser.token}` },
+          }
+        );
+        setConversationId(res.data._id);
+      } catch (err) {
+        console.error('Failed to fetch conversation ID', err);
+      }
+    };
+
+    fetchConversationId();
+  }, [currentUser, receiverId]);
+
+  // 4️⃣ Mark messages as seen when conversationId is available
+  useEffect(() => {
+    if (!conversationId || !currentUser) return;
+
+    axios
+      .put(
+        `https://homeeasebackend.onrender.com/api/messages/markAsSeen/${conversationId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.token}`,
+          },
+        }
+      )
+      .catch((err) => console.error('Failed to mark messages as seen', err));
+  }, [conversationId, currentUser]);
 
   return (
 <div className="chat-container">
