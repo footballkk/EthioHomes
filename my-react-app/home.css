@@ -539,8 +539,9 @@ h2 {
 .chat-header {
   display: flex;
   align-items: center;
-  gap: 10px;
   padding: 10px 0;
+  justify-content: flex-start; /* aligns items to left */
+  flex-wrap: wrap; /* allows responsiveness on small screens */
 }
 
 .back-button {
@@ -548,15 +549,25 @@ h2 {
   border: none;
   font-size: 27px;
   font-weight: bold;
-  text-align:left ;
-  padding: 10px;
+  text-align: left;
+  padding: 10px 15px; /* ✅ minimal space with 15px padding */
   cursor: pointer;
   color: #4caf50;
   transition: color 0.2s ease;
+  flex-shrink: 0; /* ✅ prevents it from growing */
 }
 
 .back-button:hover {
   color: white;
-  padding-right: 10px;
   border-radius: 30%;
 }
+
+.chat-header h2 {
+  margin: 0;
+  font-size: 20px;
+  flex-grow: 1; /* ✅ title takes remaining space */
+  padding: 5px 10px;
+  min-width: 0; /* prevents overflow */
+  word-break: break-word;
+}
+
