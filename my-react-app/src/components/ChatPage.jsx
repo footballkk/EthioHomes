@@ -60,6 +60,19 @@ useEffect(() => {
   fetchMessages();
 }, [receiverId]);
 
+useEffect(() => {
+  if (conversationId) {
+    axios.put(
+      `https://homeeasebackend.onrender.com/api/messages/markAsSeen/${conversationId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    ).catch(err => console.error('Failed to mark messages as seen', err));
+  }
+}, [conversationId]);
 
   return (
 <div className="chat-container">
@@ -72,14 +85,21 @@ useEffect(() => {
     {messages.length === 0 ? (
       <p>No messages yet.</p>
     ) : (
-      messages.map((msg, index) => (
-        <div
-          key={index}
-          className={`message-bubble ${msg.senderId === currentUser?._id ? 'sent' : 'received'}`}
-        >
-          <span>{msg.text}</span>
-        </div>
-      ))
+messages.map((msg, index) => (
+  <div
+    key={index}
+    className={`message-bubble ${msg.senderId === currentUser?._id ? 'sent' : 'received'}`}
+  >
+    <span>{msg.text}</span>
+    
+    {/* Seen indicator for messages sent by the current user */}
+    {msg.senderId === currentUser?._id && (
+      <small style={{ fontSize: '10px', marginLeft: '8px', color: '#ddd' }}>
+        {msg.seen ? '✓✓' : '✓'}
+      </small>
+    )}
+  </div>
+))
     )}
   </div>
 
