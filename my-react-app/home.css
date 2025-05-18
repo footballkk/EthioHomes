@@ -557,7 +557,7 @@ h2 {
   font-weight: bold;
   color: #4caf50;
   cursor: pointer;
-  border-radius: 30%;
+  border-radius: 40%;
   line-height: 1;
   transition: color 0.2s ease;
 }
