@@ -117,7 +117,7 @@ messages.map((msg, index) => (
     
     {/* Seen indicator for messages sent by the current user */}
     {msg.senderId === currentUser?._id && (
-      <small style={{ fontSize: '10px', marginLeft: '8px', color: '#ddd' }}>
+      <small style={{ fontSize: '10px', marginLeft: '8px', color: 'black' }}>
         {msg.seen ? '✓✓' : '✓'}
       </small>
     )}
