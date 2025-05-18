@@ -549,6 +549,7 @@ h2 {
   font-size: 27px;
   font-weight: bold;
   text-align:left ;
+  padding: 10px;
   cursor: pointer;
   color: #4caf50;
   transition: color 0.2s ease;
@@ -556,4 +557,6 @@ h2 {
 
 .back-button:hover {
   color: white;
+  padding: 10px;
+  border-radius: 30%;
 }
