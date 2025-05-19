@@ -557,13 +557,14 @@ h2 {
   font-weight: bold;
   color: #4caf50;
   cursor: pointer;
-  border-radius: 40%;
+  border-radius: 50%;
   line-height: 1;
   transition: color 0.2s ease;
 }
 
 .back-button:hover {
   color: white;
+  background-color: #6c757d;
 }
 
 
