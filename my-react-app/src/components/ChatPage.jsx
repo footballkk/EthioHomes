@@ -130,8 +130,8 @@ messages.map((msg, index) => (
     className={`message-bubble ${msg.senderId === currentUser?._id ? 'sent' : 'received'}`}
   >
     <span>{msg.text}</span>
-    
-    {/* Seen indicator for messages sent by the current user */}
+
+    {/* Only show ✓ or ✓✓ for messages sent by the current user */}
     {msg.senderId === currentUser?._id && (
       <small style={{ fontSize: '10px', marginLeft: '8px', color: 'blue' }}>
         {msg.seen ? '✓✓' : '✓'}
@@ -139,6 +139,7 @@ messages.map((msg, index) => (
     )}
   </div>
 ))
+
     )}
   </div>
 
