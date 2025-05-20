@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const handleReset = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`http://localhost:5000/reset-password/${token}`, {
+      const res = await axios.post(`https://homeeasebackend.onrender.com/${token}`, {
         newPassword,
       });
       setMessage(res.data.message);
