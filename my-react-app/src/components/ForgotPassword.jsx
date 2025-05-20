@@ -19,7 +19,8 @@ const ForgotPassword = () => {
 
   return (
     <div className="forgot-password-container">
-      <h2>Forgot Password</h2>
+      <button className="back-button" onClick={() => navigate(-1)}>←</button>
+      <h2 className='reset-header'>Forgot Password</h2>
       <form onSubmit={handleSubmit}>
         <input 
           type="email" 
