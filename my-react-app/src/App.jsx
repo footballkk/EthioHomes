@@ -6,6 +6,8 @@ import BuyerDashboard from './components/BuyerDashboard.jsx';
 import SellerDashboard from './components/SellerDashboard.jsx';
 import ChatPage from './components/ChatPage.jsx';
 import Inbox from './components/Inbox.jsx';
+import ForgotPassword from './components/ForgotPassword.jsx';
+import ResetPassword from './components/ResetPassword.jsx';
 function App() {
   return (
     <Routes>
@@ -16,6 +18,9 @@ function App() {
       <Route path="/seller-dashboard" element={<SellerDashboard />} />
       <Route path="/chat/:id" element={<ChatPage />} />
        <Route path="/inbox" element={<Inbox />} />
+       <Route path="/forgot-password" element={<ForgotPassword />} />
+       <Route path="/reset-password" element={<ResetPassword/>} />
+    
     </Routes>
   );
 }

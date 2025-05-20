@@ -114,7 +114,15 @@ required
   onChange={handleChange}
   required
     /><br />
-<button type="submit">Login</button>
+<button type="submit">Login</button><br />
+<p>
+  <button 
+    onClick={() => navigate('/forgot-password')} 
+    style={styles.linkButton}
+  >
+    Forgot Password?
+  </button>
+</p>
 </form>
 <p>
 Don't have an account?{' '}
