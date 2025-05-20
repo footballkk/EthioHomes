@@ -19,7 +19,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="forgot-password-container">
-      <button className="back-button" onClick={() => navigate(-1)}>←</button>
+      {/* <button className="back-button" onClick={() => navigate(-1)}>←</button> */}
       <h2 className='reset-header'>Forgot Password</h2>
       <form onSubmit={handleSubmit}>
         <input 
