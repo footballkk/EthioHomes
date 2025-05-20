@@ -1,7 +1,7 @@
 // src/components/ForgotPassword.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-// import './ForgotPassword.css'; // Make sure this path matches your file structure
+import './ForgotPassword.css'; // Make sure this path matches your file structure
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
