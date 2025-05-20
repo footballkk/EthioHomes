@@ -1,6 +1,7 @@
 // src/components/ForgotPassword.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import './ForgotPassword.css'; // Make sure this path matches your file structure
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: 'auto', marginTop: '50px' }}>
+    <div className="forgot-password-container">
       <h2>Forgot Password</h2>
       <form onSubmit={handleSubmit}>
         <input 
