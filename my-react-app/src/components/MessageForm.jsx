@@ -14,13 +14,11 @@ const token = currentUser?.token;
 useEffect(() => {
   const getOrCreateConversation = async () => {
     try {
+      // Build the payload safely
       const payload = {
         sellerId: receiverId,
+        ...(propertyId && { propertyId }) // Only add propertyId if it exists
       };
-
-      if (propertyId) {
-        payload.propertyId = propertyId;
-      }
 
       console.log('📤 Sending to backend:', payload);
 
@@ -47,7 +45,8 @@ useEffect(() => {
   if (currentUserId && receiverId) {
     getOrCreateConversation();
   }
-}, [currentUserId, receiverId, propertyId, token]); // <--- This is now safe
+}, [currentUserId, receiverId, propertyId, token]); // ✅ useEffect dependencies
+ // <--- This is now safe
 
 
 // ✅ Below is your send handler — well-structured
