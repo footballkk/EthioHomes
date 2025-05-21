@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../utils/axiosInstance'; // uses centralized token
+import axios from '../utils/axiosInstance'
 import '../../home.css';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -12,13 +12,15 @@ const Inbox = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       toast.error('Please log in to view your inbox');
-      return;
+      return; // Important to return early!
     }
     setCurrentUser(user);
 
     const fetchConversations = async () => {
       try {
-        const res = await axios.get('/api/conversations'); // no manual header
+        const res = await axios.get('https://homeeasebackend.onrender.com/api/conversations', {
+          headers: { Authorization: `Bearer ${user.token}` }
+        });
         setConversations(res.data);
       } catch (err) {
         toast.error('Failed to load conversations');
@@ -29,8 +31,6 @@ const Inbox = () => {
     fetchConversations();
   }, []);
 
-  const currentUserId = currentUser?.userId || currentUser?._id || '';
-
   return (
     <div className="inbox-container">
       <ToastContainer />
@@ -40,15 +40,13 @@ const Inbox = () => {
       ) : (
         <ul className="inbox-list">
           {conversations.map((conv) => {
+            const currentUserId = currentUser?._id || currentUser?.userId || '';
             const otherUser = conv.participants.find((p) => p._id !== currentUserId);
-            if (!otherUser) return null;
-
             return (
               <li key={conv._id}>
                 <Link to={`/chat/${otherUser._id}`} className="inbox-link">
                   Message with {otherUser?.email || 'User'}
                 </Link>
-                <p>Property: {conv.property?.title || 'Unknown Property'}</p>
               </li>
             );
           })}
