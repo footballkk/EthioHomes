@@ -13,7 +13,12 @@ const token = currentUser?.token;
   // 🔧 Step 1: Get or create the conversation when the component mounts
 useEffect(() => {
   const getOrCreateConversation = async () => {
+
+
 try {
+const payload = {
+  sellerId: receiverId,
+};
   if (!token) {
     console.error("❌ No token found. User might not be logged in.");
     return;
@@ -44,7 +49,6 @@ try {
   );
 }
 
-  };
 
   // ✅ Trigger only when required fields are available
   if (currentUserId && receiverId) {
