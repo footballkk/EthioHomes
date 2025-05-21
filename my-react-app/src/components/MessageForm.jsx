@@ -26,7 +26,7 @@ useEffect(() => {
       console.log('📤 Sending to backend:', payload);
 
       const res = await axios.post(
-        'https://homeeasebackend.onrender.com/api/Conversations/findOrCreate',
+        'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
         payload,
         {
           headers: {
