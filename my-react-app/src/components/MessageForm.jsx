@@ -13,76 +13,19 @@ const token = currentUser?.token;
   // 🔧 Step 1: Get or create the conversation when the component mounts
 useEffect(() => {
   const getOrCreateConversation = async () => {
-
-
-try {
-const payload = {
-  sellerId: receiverId,
-};
-  if (!token) {
-    console.error("❌ No token found. User might not be logged in.");
-    return;
-  }
-
-  if (!payload?.sellerId || !payload?.propertyId) {
-    console.error("❌ Payload missing required fields:", payload);
-    return;
-  }
-
-  const res = await axios.post(
-    'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
-    payload,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`, // ✅ correct use of backticks
-      },
-    }
-  );
-
-  console.log("✅ Conversation created or fetched:", res.data);
-  return res.data;
-
-} catch (error) {
-  console.error(
-    "❌ Error in Axios POST:",
-    error.response?.data || error.message
-  );
-}
-
-
-  // ✅ Trigger only when required fields are available
-  if (currentUserId && receiverId) {
-    getOrCreateConversation();
-  }
-}, [currentUserId, receiverId, propertyId, token]);
-
-
-
-  const handleSend = async (e) => {
-    e.preventDefault();
-
-    if (!text.trim()) {
-      toast.warning('Please enter a message');
-      return;
-    }
-
-    if (!conversationId) {
-      toast.error('Conversation not ready yet');
-      return;
-    }
-
-    const payload = {
-      conversationId,
-      receiverId,
-      senderId: currentUserId, // ✅ Add this
-      text,
-    };
-
-    console.log("📤 Sending message payload:", payload);
-
     try {
+      const payload = {
+        sellerId: receiverId,
+      };
+
+      if (propertyId) {
+        payload.propertyId = propertyId;
+      }
+
+      console.log('📤 Sending to backend:', payload);
+
       const res = await axios.post(
-        'https://homeeasebackend.onrender.com/api/messages',
+        'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
         payload,
         {
           headers: {
@@ -91,13 +34,63 @@ const payload = {
         }
       );
 
-      toast.success('Message sent!');
-      setText('');
+      console.log('✅ Conversation created/found:', res.data);
+      setConversationId(res.data._id);
+      console.log('Conversation ID:', res.data._id);
     } catch (err) {
-      console.error('❌ Error sending message:', err);
-      toast.error('Failed to send message');
+      console.error('❌ Error getting/creating conversation:', err);
+      toast.error('Failed to create/find conversation');
     }
   };
+
+  // ✅ Trigger only when required fields are available
+  if (currentUserId && receiverId) {
+    getOrCreateConversation();
+  }
+}, [currentUserId, receiverId, propertyId, token]); // <--- This is now safe
+
+
+// ✅ Below is your send handler — well-structured
+const handleSend = async (e) => {
+  e.preventDefault();
+
+  if (!text.trim()) {
+    toast.warning('Please enter a message');
+    return;
+  }
+
+  if (!conversationId) {
+    toast.error('Conversation not ready yet');
+    return;
+  }
+
+  const payload = {
+    conversationId,
+    receiverId,
+    senderId: currentUserId,
+    text,
+  };
+
+  console.log("📤 Sending message payload:", payload);
+
+  try {
+    const res = await axios.post(
+      'https://homeeasebackend.onrender.com/api/messages',
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    toast.success('Message sent!');
+    setText('');
+  } catch (err) {
+    console.error('❌ Error sending message:', err);
+    toast.error('Failed to send message');
+  }
+};
 
   return (
     <form onSubmit={handleSend} style={{ display: 'flex', marginTop: '10px' }}>
