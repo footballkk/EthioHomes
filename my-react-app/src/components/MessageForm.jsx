@@ -13,35 +13,37 @@ const token = currentUser?.token;
   // 🔧 Step 1: Get or create the conversation when the component mounts
 useEffect(() => {
   const getOrCreateConversation = async () => {
-    try {
-      // ✅ Build the payload dynamically
-      const payload = {
-        sellerId: receiverId,
-      };
+try {
+  if (!token) {
+    console.error("❌ No token found. User might not be logged in.");
+    return;
+  }
 
-      if (propertyId) {
-        payload.propertyId = propertyId;
-      }
+  if (!payload?.sellerId || !payload?.propertyId) {
+    console.error("❌ Payload missing required fields:", payload);
+    return;
+  }
 
-      console.log('📤 Sending to backend:', payload);
-
-      const res = await axios.post(
-        'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log('✅ Conversation created/found:', res.data);
-      setConversationId(res.data._id);
-      console.log('Conversation ID:', res.data._id);
-    } catch (err) {
-      console.error('❌ Error getting/creating conversation:', err);
-      toast.error('Failed to create/find conversation');
+  const res = await axios.post(
+    'https://homeeasebackend.onrender.com/api/conversations/findOrCreate',
+    payload,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`, // ✅ correct use of backticks
+      },
     }
+  );
+
+  console.log("✅ Conversation created or fetched:", res.data);
+  return res.data;
+
+} catch (error) {
+  console.error(
+    "❌ Error in Axios POST:",
+    error.response?.data || error.message
+  );
+}
+
   };
 
   // ✅ Trigger only when required fields are available
