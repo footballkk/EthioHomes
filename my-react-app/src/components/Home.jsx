@@ -17,6 +17,7 @@ const images = [
   ];
 const Home = () => {
 const { i18n } = useTranslation();
+const [status, setStatus] = useState('');
  useEffect(() => {
   const savedLang = localStorage.getItem('lang');  // Get saved language from localStorage
   if (savedLang && savedLang !== i18n.language) {
@@ -75,6 +76,25 @@ setResults(res.data);
 console.error("Search failed", err);
 }
 }; 
+const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('https://homeeasebackend.onrender.com/api/contact', formData);
+      if (res.data.success) {
+        setStatus('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setStatus('Failed to send message.');
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus('Error sending message. Please try again.');
+    }
+  };
 return(
 <div>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -296,23 +316,50 @@ Our mission is to revolutionize the property market in Ethiopia by making proper
 <div className="container mt-5">
 <div className="row">
 <div className="col-lg-6 mb-4">
-<h2 className="text-center text-primary mb-4">Contact Us</h2>
-<p className="text-center mb-4"><b>We'd love to hear from you. Feel free to reach out for any questions or inquiries!</b></p>
-<form>
-<div className="mb-3">
-<label htmlFor="name" className="form-label">Full Name</label>
-<input type="text" className="form-control" id="name" placeholder="Enter your full name" />
-</div>
-<div className="mb-3">
-<label htmlFor="email" className="form-label">Email Address</label>
-<input type="email" className="form-control" id="email" placeholder="Enter your email address" />
-</div>
-<div className="mb-3">
-<label htmlFor="message" className="form-label">Your Message</label>
-<textarea className="form-control" id="message" rows="4" placeholder="Write your message here..."></textarea>
-</div>
-<button type="submit" className="btn btn-primary w-100">Send Message</button>
-</form>
+      <h2 className="text-center text-primary mb-4">Contact Us</h2>
+      <p className="text-center mb-4">
+        <b>We'd love to hear from you. Feel free to reach out for any questions or inquiries!</b>
+      </p>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">Full Name</label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            placeholder="Enter your full name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email Address</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            placeholder="Enter your email address"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="message" className="form-label">Your Message</label>
+          <textarea
+            className="form-control"
+            id="message"
+            rows="4"
+            placeholder="Write your message here..."
+            value={formData.message}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary w-100">Send Message</button>
+      </form>
+      {status && <p className="text-center mt-3">{status}</p>}
 </div>
 <div className="col-lg-6 mb-4">
 <h2 className="text-center text-primary mb-4">Our Office</h2>
