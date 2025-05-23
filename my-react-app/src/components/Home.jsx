@@ -17,6 +17,12 @@ const images = [
   ];
 const Home = () => {
 const { i18n } = useTranslation();
+const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  message: '',
+});
+const [status, setStatus] = useState('');
  useEffect(() => {
   const savedLang = localStorage.getItem('lang');  // Get saved language from localStorage
   if (savedLang && savedLang !== i18n.language) {
@@ -75,7 +81,6 @@ setResults(res.data);
 console.error("Search failed", err);
 }
 }; 
-const [status, setStatus] = useState('');
 const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
