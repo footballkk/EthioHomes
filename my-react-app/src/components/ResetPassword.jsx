@@ -1,6 +1,8 @@
+// ResetPassword.jsx
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import './ResetPassword.css'; // Link to the external CSS
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -20,19 +22,22 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <h2>Reset Your Password</h2>
-      <form onSubmit={handleReset}>
-        <input
-          type="password"
-          placeholder="Enter new password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Reset Password</button>
-      </form>
-      <p>{message}</p>
+    <div className="reset-container">
+      <div className="reset-card">
+        <h2 className="reset-title">Reset Your Password</h2>
+        <form onSubmit={handleReset} className="reset-form">
+          <input
+            type="password"
+            placeholder="Enter new password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+            className="reset-input"
+          />
+          <button type="submit" className="reset-button">Reset Password</button>
+        </form>
+        {message && <p className="reset-message">{message}</p>}
+      </div>
     </div>
   );
 };
