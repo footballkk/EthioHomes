@@ -9,10 +9,10 @@ import Footer from './Footer'; // adjust the path if needed
 import newLogo from '../../newLogo.png'; // adjust path based on your folder
 import axios from "axios";
 const images = [
-    "/images/home1.jfif",
+    "/images/home1.jpg",
     "/images/home2.jfif",
     "/images/home3.jfif",
-    "/images/home4.jfif",
+    "/images/home4.jpg",
     "/images/home5.jfif",
   ];
 const Home = () => {
