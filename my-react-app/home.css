@@ -577,11 +577,3 @@ h2 {
   word-break: break-word;
 }
 
-/* @media (max-width: 768px) { */
-  /* .property-card {
-    width: 100vw;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    border-radius: 0; /* Optional: remove border-radius if you want full edge-to-edge look */
-  /* } */ */
-/* } */
