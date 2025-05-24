@@ -577,3 +577,13 @@ h2 {
   word-break: break-word;
 }
 
+@media (max-width: 768px) {
+  .property-card {
+    margin-left: -1rem; /* cancel parent container padding */
+    margin-right: -1rem;
+    width: calc(100% + 2rem); /* stretch extra to compensate */
+    border-radius: 0;
+  }
+}
+
+
