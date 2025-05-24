@@ -31,7 +31,8 @@ const ForgotPassword = () => {
         /><br /><br />
         <button type="submit">Send Reset Link</button>
       </form>
-      {message && <p>{message}</p>}
+     {message && <p className="reset-message">{message}</p>}
+
     </div>
   );
 };
