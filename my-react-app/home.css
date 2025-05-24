@@ -576,7 +576,14 @@ h2 {
   min-width: 0; /* prevents overflow */
   word-break: break-word;
 }
-
+@media (max-width: 768px) {
+.buyerPage {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+}
 @media (max-width: 768px) {
   .property-card {
     margin-left: -1rem; /* cancel parent container padding */
