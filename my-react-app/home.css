@@ -582,7 +582,7 @@ h2 {
     margin-left: -1rem; /* cancel parent container padding */
     margin-right: -1rem;
     width: calc(100% + 2rem); /* stretch extra to compensate */
-    border-radius: 0;
+    border-radius: 5px;
   }
 }
 
